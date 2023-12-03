@@ -1,7 +1,5 @@
 class calculator:
 	
-	
-	
 	def plus(a,b):
 		return int(a)+int(b)
 	
@@ -12,7 +10,8 @@ class calculator:
 	@classmethod
 	def parantese(cls, inp):
 		a = inp.find('(')
-		b =inp.find(')')
+		b = inp[::-1].find(')')
+		b = len(inp)-b-1
 		print(inp[a+1:b], 100)
 		print(a, '     ', b)
 		return inp[a+1:b], inp[0:a], inp[b+1:]
