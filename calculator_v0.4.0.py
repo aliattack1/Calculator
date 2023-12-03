@@ -10,6 +10,15 @@ class calculator:
 	operations_string = '+'
 	
 	@classmethod
+	def parantese(cls, inp):
+		a = inp.find('(')
+		b =inp.find(')')
+		print(inp[a+1:b], 100)
+		print(a, '     ', b)
+		return inp[a+1:b], inp[0:a], inp[b+1:]
+		
+	
+	@classmethod
 	def input_to_list(cls, inp):
 		lis = []
 		used_operation_list = []
@@ -53,7 +62,13 @@ class calculator:
 		return last_number
 	@classmethod
 	def calculate(cls, inp):
-		return(cls.operations(cls.input_to_list(inp)))
+		if '(' in inp or ')' in inp:
+			inp1 , inp2 , inp3 = cls.parantese(inp)
+			new_inp = cls.calculate(inp1)
+			print(inp2+ str(new_inp) + inp3)
+			return cls.calculate(inp2+ str(new_inp) + inp3)
+		else:
+			return (cls.operations(cls.input_to_list(inp)))
 	
 	@classmethod
 	def operation_register(cls, opname, func):
