@@ -37,18 +37,17 @@ class calculator:
 	@classmethod
 	def operations(cls, lis):
 		opcount = 0
+		last_number = lis[0]
 		for i in lis :
 			
 			if i in cls.operations_string:
 				new_number = lis[opcount+1]
-				print(cls.callop(last_number, i, new_number))
-			else :
-				last_number = i
+				last_number = (cls.callop(last_number, i, new_number))
 			opcount += 1
+		return last_number
 	@classmethod
 	def calculate(cls, inp):
-		cls.operations(cls.input_to_list(inp))
+		return(cls.operations(cls.input_to_list(inp)))
 	
 
-calculator.calculate(input())
-	
+print(calculator.calculate(input()))
