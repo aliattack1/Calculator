@@ -1,3 +1,2 @@
-from . import plus
-from . import minus
-dictionary = {'+': plus, '-': minus}
+from . import plus, minus, multiple, divide, power
+dictionary = {'+': plus, '-': minus, '*': multiple, '/': divide, '^': power}
