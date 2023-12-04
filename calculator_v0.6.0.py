@@ -1,3 +1,6 @@
+import operations as op
+
+
 class Calculator:
 
     operation_method_dict = {}
@@ -86,13 +89,8 @@ class Calculator:
         cls.operations_string += opname
 
 
-def minus(num1, num2):
-    return int(num1) - int(num2)
+for key in op.dictionary:
+    Calculator.operation_register(key, op.dictionary[key].action)
 
-def plus(a, b):
-    return int(a) + int(b)
-
-Calculator.operation_register('-', minus)
-Calculator.operation_register('+', plus)
 
 print('    ', Calculator.calculate(input('     ')))
