@@ -42,3 +42,18 @@ then we start to seperate from left side using indexes of operators so the list 
     ['10', '+', '20']
 
 ### main loop
+**in main loop we send first number and second one  with their operator in between to callop function**
+
+**this function will choose one of operators (an operator function) from operator string and gives it numbers (functions are stored in a dict with the string of their operator)**
+
+**operator functions will calculate the answer and return it (if we have a negetive number from inside a parantheses it will calculate that too**
+
+**then the main loop uses the answer returned as left number and calculates it with next number and operator using same callop function**
+
+## registraion of operators
+
+**in calculator class we need to fill the dict countainig operators so we have a loop that for all submited methods in operations package in __init__.py adds the function with key of its operator string to that dict**
+
+# what this program cant still do
+
+**this program is still having problem with multiple parantheses , user wrong inputs , math order calculations and etc...**
