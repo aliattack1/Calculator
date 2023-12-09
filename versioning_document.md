@@ -10,3 +10,4 @@
 | 0.5.1        | extracting plus operation function from inside of calculator class to its outside |
 | 0.6.0        | making a new automatic way to define operations from outside of the calculator class while adding a file keeping all of them as seperate modules |
 | 0.6.1        | adding multiple , divide and power modules to operations file |
+| 0.7.0        | changing calculation structure to calculate input by mathematical order|
