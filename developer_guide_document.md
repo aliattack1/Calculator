@@ -11,13 +11,9 @@ so if you are not a developer this document is not suitable for you (go read use
 **the input shoud be able to have parantheses , one charecter operators , spaces , and wrongparts entered by a user
 handling true ones erasing false ones and be able to calculate its answer**
 
-# how is this working ( version 0.7 )
+# how is this working ( version 0.7.1 )
 
-**at first it gets a string input from user in console 
-wich is going to order method order method is going to seperate and modify operators to do calculations by order
-for doing this jobw egive an imnportance value to each operator and the calculator will consider operators from maximum of importance value**
-
-**then the program checks if input have paranthese if it has a loop will 
+**at first it gets a string input from user in console then the program checks if input have paranthese if it has a loop will 
 start**
 
 - has parantheses
@@ -34,9 +30,10 @@ but how is answer provided ?**
 
 ## calculating answer algorithm
 
-- first we seperate the raw input into multiple parts keeping it in a list
-- we start a loop that takes the most left number (first element in list) and the next number of it  giving it to callop method
-- callop method gives these numbers to a function (operation) that it will pick from registered operations  by the operator character between those numbers the function  will calculate that part and will return answer as first number for next operation
+- at first we order the operations
+- then we seperate the raw input into multiple parts keeping it in a list
+- then we start a loop that takes the most left number (first element in list) and the next number of it  giving it to callop method
+- then callop method gives these numbers to a function (operation) that it will pick from registered operations  by the operator character between those numbers the function  will calculate that part and will return answer as first number for next operation
 
 ### separating input string into a list of numbers and operators
 
