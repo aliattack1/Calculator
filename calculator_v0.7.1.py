@@ -5,48 +5,47 @@ class Calculator:
 
     operation_method_dict = {}
     operations_string = ''
-    negetive_number = False
-    negetive_number_right = None
+    negative_number = False
+    negative_number_right = None
     operations_importance = ""
     importance_dictionary = {}
 
     @classmethod
-    def parantese(cls, inp):
-        a = inp.find('(')
-        b = inp[::-1].find(')')
-        b = len(inp) - b - 1
-        return inp[a + 1:b], inp[0:a], inp[b + 1:]
+    def parentheses(cls, inp):
+        left_parentheses_index = inp.find('(')
+        right_parenthesess_index = len(inp) - (inp[::-1].find(')')) - 1
+        return inp[left_parentheses_index + 1:right_parenthesess_index], inp[0:left_parentheses_index], inp[right_parenthesess_index + 1:]
 
     @classmethod
     def input_to_list(cls, inp):
-        lis = []
+        output_list = []
         used_operation_list = []
         used_operation_index_list = []
-        count = 0
+        operation_list_loop_count = 0
 
-        for i in inp:
-            if i in cls.operations_string:
-                used_operation_list.append(i)
-                used_operation_index_list.append(count)
+        for letter in inp:
+            if letter in cls.operations_string:
+                used_operation_list.append(letter)
+                used_operation_index_list.append(operation_list_loop_count)
 
-            count += 1
-        lis.append(inp[0:used_operation_index_list[0]])
-        new_count = 0
-        for s in used_operation_index_list:
-            lis.append(inp[s])
-            if len(used_operation_index_list) > new_count + 1:
-                lis.append(inp[s + 1:used_operation_index_list[new_count + 1]])
+            operation_list_loop_count += 1
+        output_list.append(inp[0:used_operation_index_list[0]])
+        list_filing_loop_count = 0
+        for operation_index in used_operation_index_list:
+            output_list.append(inp[operation_index])
+            if len(used_operation_index_list) > list_filing_loop_count + 1:
+                output_list.append(inp[operation_index + 1:used_operation_index_list[list_filing_loop_count + 1]])
             else:
-                lis.append(inp[s + 1:])
-            new_count += 1
-        return lis
+                output_list.append(inp[operation_index + 1:])
+            list_filing_loop_count += 1
+        return output_list
 
     @classmethod
     def callop(cls, num1, operation, num2):
         if operation in cls.operations_string:
-            if cls.negetive_number:
-                cls.negetive_number = False
-                if cls.negetive_number_right:
+            if cls.negative_number:
+                cls.negative_number = False
+                if cls.negative_number_right:
                     return cls.operation_method_dict[operation](int(num1), -int(num2))
                 else:
                     return cls.operation_method_dict[operation](-int(num1), int(num2))
@@ -54,45 +53,45 @@ class Calculator:
                 return cls.operation_method_dict[operation](int(num1), int(num2))
 
     @classmethod
-    def operations(cls, lis):
-        opcount = 0
-        last_number = lis[0]
-        for i in lis:
+    def operations(cls, input_list):
+        operation_count = 0
+        last_number = input_list[0]
+        for input_part in input_list:
 
-            if i in cls.operations_string:
-                new_number = lis[opcount + 1]
-                last_number = (cls.callop(last_number, i, new_number))
-            opcount += 1
+            if input_part in cls.operations_string:
+                new_number = input_list[operation_count + 1]
+                last_number = (cls.callop(last_number, input_part, new_number))
+            operation_count += 1
         return last_number
 
     @classmethod
     def calculate(cls, inp):
         if '(' in inp or ')' in inp:
-            inp1, inp2, inp3 = cls.parantese(inp)
-            new_inp = cls.calculate(inp1)
+            inp_part_1, inp_part_2, inp_part_3 = cls.parentheses(inp)
+            new_inp = cls.calculate(inp_part_1)
             if new_inp >= 0:
-                return cls.calculate(inp2 + str(new_inp) + inp3)
+                return cls.calculate(inp_part_2 + str(new_inp) + inp_part_3)
             else:
-                if inp2 != "":
-                    cls.negetive_number = True
-                    cls.negetive_number_right = True
-                    return cls.calculate(inp2 + str(-new_inp) + inp3)
+                if inp_part_2 != "":
+                    cls.negative_number = True
+                    cls.negative_number_right = True
+                    return cls.calculate(inp_part_2 + str(-new_inp) + inp_part_3)
                 else:
-                    cls.negetive_number = True
-                    cls.negetive_number_right = False
-                    return cls.calculate(inp2 + str(-new_inp) + inp3)
+                    cls.negative_number = True
+                    cls.negative_number_right = False
+                    return cls.calculate(inp_part_2 + str(-new_inp) + inp_part_3)
         else:
-            return cls.order(inp)
+            return cls.ordered_calculation_structure(inp)
 
     @classmethod
-    def importance_list(cls, inp):
-        ilist = {}
-        n = 0
+    def input_to_importance_dict(cls, inp):
+        importance_dict = {}
+        count = 0
         for i in inp:
             if i in cls.operations_string:
-                ilist[n] = (op.importance_dictionary[i])
-            n += 1
-        return ilist
+                importance_dict[count] = (op.importance_dictionary[i])
+            count += 1
+        return importance_dict
 
 
     @classmethod
@@ -107,44 +106,43 @@ class Calculator:
 
 
     @staticmethod
-    def gstr(lis):
-        l = ""
-        for a in lis:
-            l += a
-        return l
+    def get_string(input_list):
+        string = ""
+        for part in input_list:
+            string += part
+        return string
 
     @classmethod
     def order_call(cls, inp, place):
         lis = cls.input_to_list(inp)
         index = cls.index_finder(lis, place)
-        m = lis[index-1:index+2]
-        l = cls.gstr(m)
-        answer = cls.operations(cls.input_to_list(l))
-        return cls.gstr(lis[:index-1]) + str(answer) + cls.gstr(lis[index+2:])
+        seperated_input_part = cls.get_string(lis[index-1:index+2])
+        answer = cls.operations(cls.input_to_list(seperated_input_part))
+        return cls.get_string(lis[:index - 1]) + str(answer) + cls.get_string(lis[index + 2:])
 
 
 
     @classmethod
-    def order(cls, inp):
-        imlist = cls.importance_list(inp)
-        ilist = list(imlist.keys())
-        nlist = []
-        for i in ilist:
-            nlist.append(imlist[i])
+    def ordered_calculation_structure(cls, inp):
+        importance_list = cls.input_to_importance_dict(inp)
+        importance_list_keys = list(importance_list.keys())
+        importance_list_values = []
+        for key in importance_list_keys:
+            importance_list_values.append(importance_list[key])
 
-        while max(nlist) > 1:
-            s = max(nlist)
-            f = ""
-            for a in ilist:
-                f += str(imlist[a])
-            inp = cls.order_call(inp, ilist[f.index(str(s))])
-            imlist = cls.importance_list(inp)
+        while max(importance_list_values) > 1:
+            max_importance_value = max(importance_list_values)
+            importance_values_string = ""
+            for key in importance_list_keys:
+                importance_values_string += str(importance_list[key])
+            inp = cls.order_call(inp, importance_list_keys[importance_values_string.index(str(max_importance_value))])
+            importance_list = cls.input_to_importance_dict(inp)
 
-            ilist = list(imlist.keys())
-            nlist = []
-            for i in ilist:
-                nlist.append(imlist[i])
-            if nlist == []:
+            importance_list_keys = list(importance_list.keys())
+            importance_list_values = []
+            for key in importance_list_keys:
+                importance_list_values.append(importance_list[key])
+            if not importance_list_values:
                 return inp
         return cls.operations(cls.input_to_list(inp))
 
