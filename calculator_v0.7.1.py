@@ -70,7 +70,6 @@ class Calculator:
         if '(' in inp or ')' in inp:
             inp1, inp2, inp3 = cls.parantese(inp)
             new_inp = cls.calculate(inp1)
-            print(inp2 + str(new_inp) + inp3)
             if new_inp >= 0:
                 return cls.calculate(inp2 + str(new_inp) + inp3)
             else:
@@ -83,7 +82,7 @@ class Calculator:
                     cls.negetive_number_right = False
                     return cls.calculate(inp2 + str(-new_inp) + inp3)
         else:
-            return cls.operations(cls.input_to_list(inp))
+            return cls.order(inp)
 
     @classmethod
     def importance_list(cls, inp):
@@ -120,7 +119,7 @@ class Calculator:
         index = cls.index_finder(lis, place)
         m = lis[index-1:index+2]
         l = cls.gstr(m)
-        answer = cls.calculate(l)
+        answer = cls.operations(cls.input_to_list(l))
         return cls.gstr(lis[:index-1]) + str(answer) + cls.gstr(lis[index+2:])
 
 
@@ -147,7 +146,7 @@ class Calculator:
                 nlist.append(imlist[i])
             if nlist == []:
                 return inp
-        return cls.calculate(inp)
+        return cls.operations(cls.input_to_list(inp))
 
 
     @classmethod
@@ -160,4 +159,5 @@ for key in op.dictionary:
     Calculator.operation_register(key, op.dictionary[key].action)
 Calculator.importance_dict = op.importance_dictionary
 
-print(Calculator.order(input()))
+print(Calculator.calculate(input()))
+
