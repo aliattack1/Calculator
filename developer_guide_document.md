@@ -9,11 +9,14 @@ so if you are not a developer this document is not suitable for you (go read use
 100+25+(10*24)-(10+(10+10)) and return its answer**
 
 **the input shoud be able to have parantheses , one charecter operators , spaces , and wrongparts entered by a user
-handling true ones erasing false ones and be able to calculate its answer**
+ and be able to calculate its answer or raise a describing error**
 
-# how is this working ( version 0.8 )
+# how is this working ( version 0.9 )
 
-**at first it gets a string input from user in console then the program checks if input have paranthese if it has a loop will 
+**at first it gets a string input from user in console 
+it will check input for unfinished parentheses and letters if any one of them seen it raises an error describing the problem
+then it will deletes all spaces in input
+then the program checks if input have paranthese if it has a loop will 
 start**
 
 - has parantheses
@@ -54,6 +57,3 @@ then we start to seperate from left side using indexes of operators so the list 
 
 **in calculator class we need to fill the dict countainig operators so we have a loop that for all submited methods in operations package in __init__.py adds the function with key of its operator string to that dict**
 
-# what this program cant still do
-
-**this program is still having problem with user wrong inputs and etc...**
