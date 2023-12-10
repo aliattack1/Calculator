@@ -12,8 +12,21 @@ class Calculator:
 
     @classmethod
     def parentheses(cls, inp):
-        left_parentheses_index = inp.find('(')
-        right_parenthesess_index = len(inp) - (inp[::-1].find(')')) - 1
+        start_p_count = 0
+        end_p_count = 0
+        letter_count = 0
+        for letter in inp:
+            if letter == "(":
+                start_p_count += 1
+            elif letter == ")":
+                end_p_count += 1
+            if start_p_count == end_p_count != 0:
+                break
+            letter_count += 1
+        inp1 = inp[:letter_count+1]
+        print(inp1)
+        left_parentheses_index = inp1.find('(')
+        right_parenthesess_index = len(inp1) - (inp1[::-1].find(')')) - 1
         return inp[left_parentheses_index + 1:right_parenthesess_index], inp[0:left_parentheses_index], inp[right_parenthesess_index + 1:]
 
     @classmethod
@@ -69,7 +82,7 @@ class Calculator:
         if '(' in inp or ')' in inp:
             inp_part_1, inp_part_2, inp_part_3 = cls.parentheses(inp)
             new_inp = cls.calculate(inp_part_1)
-            if new_inp >= 0:
+            if int(new_inp) >= 0:
                 return cls.calculate(inp_part_2 + str(new_inp) + inp_part_3)
             else:
                 if inp_part_2 != "":
