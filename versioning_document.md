@@ -14,3 +14,4 @@
 | 0.7.1        | handled previous versions problem with parantheses |
 | 0.7.2        | renaming bad named variables |
 | 0.8.0        | solved problems with separated multiple parentheses |
+| 0.9.0        | handle problems with space , letter and unfinished parentheses in input |
