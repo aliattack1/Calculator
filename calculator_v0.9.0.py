@@ -11,6 +11,40 @@ class Calculator:
     importance_dictionary = {}
 
     @classmethod
+    def input_checker(cls, inp):
+
+        parentheses_finished = None
+        countains_letter = None
+        letters_string = "qwertyuioplkjhgfdsazxcvbnm"
+        for char in inp:
+            if char in letters_string:
+                countains_letter = True
+                break
+        start_p_count = 0
+        end_p_count = 0
+        for letter in inp:
+            if letter == "(":
+                start_p_count += 1
+            elif letter == ")":
+                end_p_count += 1
+        if start_p_count == end_p_count:
+            parentheses_finished = True
+        else:
+            parentheses_finished = False
+
+        if not parentheses_finished:
+            raise Exception("you have a wrong used parentheses fix it and retry")
+        if countains_letter:
+            raise Exception("you used a letter in input we dont support variables so you should re try without letter")
+        inp_without_space = ""
+        for char in inp:
+            if char != " ":
+                inp_without_space += char
+
+        inp = inp_without_space
+        return inp
+
+    @classmethod
     def parentheses(cls, inp):
         start_p_count = 0
         end_p_count = 0
@@ -170,5 +204,5 @@ for key in op.dictionary:
     Calculator.operation_register(key, op.dictionary[key].action)
 Calculator.importance_dict = op.importance_dictionary
 
-print(Calculator.calculate(input()))
+print(Calculator.calculate(Calculator.input_checker(input())))
 
