@@ -11,7 +11,7 @@ so if you are not a developer this document is not suitable for you (go read use
 **the input shoud be able to have parantheses , one charecter operators , spaces , and wrongparts entered by a user
 handling true ones erasing false ones and be able to calculate its answer**
 
-# how is this working ( version 0.7.1 )
+# how is this working ( version 0.8 )
 
 **at first it gets a string input from user in console then the program checks if input have paranthese if it has a loop will 
 start**
@@ -56,4 +56,4 @@ then we start to seperate from left side using indexes of operators so the list 
 
 # what this program cant still do
 
-**this program is still having problem with multiple parantheses , user wrong inputs and etc...**
+**this program is still having problem with user wrong inputs and etc...**
