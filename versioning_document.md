@@ -12,3 +12,5 @@
 | 0.6.1        | adding multiple , divide and power modules to operations file |
 | 0.7.0        | changing calculation structure to calculate input by mathematical order |
 | 0.7.1        | handled previous versions problem with parantheses |
+| 0.7.2        | renaming bad named variables |
+| 0.8.0        | solved problems with separated multiple parentheses |
