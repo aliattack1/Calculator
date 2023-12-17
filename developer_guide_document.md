@@ -6,12 +6,12 @@ so if you are not a developer this document is not suitable for you (go read use
 
 # what is the main goal of the program?
 **this program is going to be a calculator using console as interface getting inputs like this 
-100+25+(10*24)-(10+(10+10))+5sin30 and return its answer**
+100+2!!5+(10*24)-(2log17+(10+10))+5sin30 and return its answer**
 
 **the input shoud be able to have parantheses , one charecter operators , multi charecter known functions , spaces , and wrongparts entered by a user
  and be able to calculate its answer or raise a describing error**
 
-# how is this working ( version 0.10 )
+# how is this working ( version 0.11 )
 
 **at first it gets a string input from user in console 
 it will check input for unfinished parentheses and letters if any one of them seen it raises an error describing the problem
