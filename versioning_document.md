@@ -16,3 +16,4 @@
 | 0.8.0        | solved problems with separated multiple parentheses |
 | 0.9.0        | handle problems with space , letter and unfinished parentheses in input |
 | 0.10.0       | added functions using available (operators with more than one letter that only effect their right number only like: sin) and added sin as first function |
+| 0.11.0       | added % , cos , tan , cot , log , ln and !! (factorial)  as new operator and functions |
