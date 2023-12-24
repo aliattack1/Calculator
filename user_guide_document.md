@@ -2,7 +2,7 @@
 
 **this document countains information for normall users to know how to work with this program**
 
-# what can this do now? ( version 0.11 ) 
+# what can this do now? ( version 0.12 ) 
 
 **this program is available to do add , subtraction , multiple , divide , power and find remaining and calculating sinus , cos , tan and cot in degree it can calculate factoriel , log , ln too , it can use math orders , it can handle parantheses well**
 
