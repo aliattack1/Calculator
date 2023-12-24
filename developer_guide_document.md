@@ -11,7 +11,7 @@ so if you are not a developer this document is not suitable for you (go read use
 **the input shoud be able to have parantheses , one charecter operators , multi charecter known functions , spaces , and wrongparts entered by a user
  and be able to calculate its answer or raise a describing error**
 
-# how is this working ( version 0.11 )
+# how is this working ( version 0.12 )
 
 **at first it gets a string input from user in console 
 it will check input for unfinished parentheses and letters if any one of them seen it raises an error describing the problem
@@ -57,3 +57,4 @@ then we start to seperate from left side using indexes of operators so the list 
 
 **in calculator class we need to fill the dict countainig operators so we have a loop that for all submited methods in operations package in __init__.py adds the function with key of its operator string to that dict**
 
+## notice that some methods like input checker are imported from utility package
