@@ -1,4 +1,5 @@
 import operations as op
+import utility
 
 
 class Calculator:
@@ -10,39 +11,6 @@ class Calculator:
     operations_importance = ""
     importance_dictionary = {}
     function_list = []
-    @classmethod
-    def input_checker(cls, inp):
-        parentheses_finished = None
-        countains_letter = None
-        letters_string = "qwertyuioplkjhgfdsazxcvbnm"
-        for char in inp:
-            if char in letters_string:
-                countains_letter = True
-                break
-        start_p_count = 0
-        end_p_count = 0
-        for letter in inp:
-            if letter == "(":
-                start_p_count += 1
-            elif letter == ")":
-                end_p_count += 1
-        if start_p_count == end_p_count:
-            parentheses_finished = True
-        else:
-            parentheses_finished = False
-
-        if not parentheses_finished:
-            raise Exception("you have a wrong used parentheses fix it and retry")
-        if countains_letter:
-            pass
-            # raise Exception("you used a letter in input we dont support variables so you should re try without letter")
-        inp_without_space = ""
-        for char in inp:
-            if char != " ":
-                inp_without_space += char
-
-        inp = inp_without_space
-        return inp
 
     @classmethod
     def parentheses(cls, inp):
@@ -61,54 +29,6 @@ class Calculator:
         left_parentheses_index = inp1.find('(')
         right_parenthesess_index = len(inp1) - (inp1[::-1].find(')')) - 1
         return inp[left_parentheses_index + 1:right_parenthesess_index], inp[0:left_parentheses_index], inp[right_parenthesess_index + 1:]
-
-    @classmethod
-    def input_to_list(cls, inp, retmod=0):
-        output_list = []
-        used_operation_list = []
-        used_operation_index_list = []
-        operation_list_loop_count = 0
-        used_function_list = []
-        used_function_index_list = []
-
-        functions_finished = False
-        while not functions_finished:
-            found_function = False
-            for i in cls.function_list:
-                if i in inp:
-                    used_function_list.append(i)
-                    inp = inp[:inp.find(i)] + "@" + inp[inp.find(i)+len(i):]
-                    found_function = True
-            if not found_function:
-                functions_finished = True
-
-        for letter in inp:
-            if letter in cls.operations_string:
-                if letter =="@":
-                    used_operation_list.append(used_function_list[0])
-                    used_function_list.pop(0)
-                    used_operation_index_list.append(operation_list_loop_count)
-                else:
-                    used_operation_list.append(letter)
-                    used_operation_index_list.append(operation_list_loop_count)
-            operation_list_loop_count += 1
-
-        if retmod == 1:
-            return used_operation_list, used_operation_index_list
-
-        output_list.append(inp[0:used_operation_index_list[0]])
-        list_filing_loop_count = 0
-        for operation_index in used_operation_index_list:
-            output_list.append(used_operation_list[list_filing_loop_count])
-
-            if len(used_operation_index_list) > list_filing_loop_count + 1:
-                output_list.append(inp[operation_index + 1:used_operation_index_list[list_filing_loop_count + 1]])
-            else:
-                output_list.append(inp[operation_index + 1:])
-            list_filing_loop_count += 1
-        if retmod == 0:
-            return output_list
-
 
     @classmethod
     def callfu(cls, num1, function, num2):
@@ -167,47 +87,16 @@ class Calculator:
             return cls.ordered_calculation_structure(inp)
 
     @classmethod
-    def input_to_importance_dict(cls, inp):
-        importance_dict = {}
-        used_operation_list, used_operation_index_list = cls.input_to_list(inp, 1)
-        count = 0
-        for i in used_operation_index_list:
-            importance_dict[i] = cls.importance_dict[used_operation_list[count]]
-            count += 1
-        return importance_dict
-
-
-    @classmethod
-    def index_finder(cls, lis, place):
-        count = -1
-        index = 1
-        for i in lis:
-            count += len(i)
-            if count == place:
-                return index
-            index += 1
-
-
-    @staticmethod
-    def get_string(input_list):
-        string = ""
-        for part in input_list:
-            string += part
-        return string
-
-    @classmethod
     def order_call(cls, inp, place):
-        lis = cls.input_to_list(inp)
-        index = cls.index_finder(lis, place-1)
-        seperated_input_part = cls.get_string(lis[index-1:index+2])
-        answer = cls.operations_and_functions(cls.input_to_list(seperated_input_part))
-        return cls.get_string(lis[:index - 1]) + str(answer) + cls.get_string(lis[index + 2:])
-
-
+        lis = utility.input_to_list.action(cls.function_list, cls.operations_string, inp)
+        index = utility.get_index.action(lis, place-1)
+        seperated_input_part = utility.get_string.action(lis[index-1:index+2])
+        answer = cls.operations_and_functions(utility.input_to_list.action(cls.function_list, cls.operations_string, seperated_input_part))
+        return utility.get_string.action(lis[:index - 1]) + str(answer) + utility.get_string.action(lis[index + 2:])
 
     @classmethod
     def ordered_calculation_structure(cls, inp):
-        importance_list = cls.input_to_importance_dict(inp)
+        importance_list = utility.input_to_importance_dict.action(cls, inp)
         importance_list_keys = list(importance_list.keys())
         importance_list_values = []
         for key in importance_list_keys:
@@ -218,7 +107,7 @@ class Calculator:
             for key in importance_list_keys:
                 importance_values_string += str(importance_list[key])
             inp = cls.order_call(inp, importance_list_keys[importance_values_string.index(str(max_importance_value))])
-            importance_list = cls.input_to_importance_dict(inp)
+            importance_list = utility.input_to_importance_dict.action(cls, inp)
 
             importance_list_keys = list(importance_list.keys())
             importance_list_values = []
@@ -226,8 +115,7 @@ class Calculator:
                 importance_list_values.append(importance_list[key])
             if not importance_list_values:
                 return inp
-        return cls.operations_and_functions(cls.input_to_list(inp))
-
+        return cls.operations_and_functions(utility.input_to_list.action(cls.function_list, cls.operations_string, inp))
 
     @classmethod
     def operation_and_function_register(cls, opname, func):
@@ -243,5 +131,4 @@ for key in op.dictionary:
     Calculator.operation_and_function_register(key, op.dictionary[key].action)
 Calculator.importance_dict = op.importance_dictionary
 
-print(Calculator.calculate(Calculator.input_checker(input())))
-
+print(Calculator.calculate(utility.input_checker.action(input())))
