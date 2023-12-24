@@ -17,3 +17,4 @@
 | 0.9.0        | handle problems with space , letter and unfinished parentheses in input |
 | 0.10.0       | added functions using available (operators with more than one letter that only effect their right number only like: sin) and added sin as first function |
 | 0.11.0       | added % , cos , tan , cot , log , ln and !! (factorial)  as new operator and functions |
+| 0.12.0       |extracted utility methods to outside of calculator class using them with importing utility package (added package utility countaining get_index, get_string, input_checker, input_to_list, input_to_importance_dict methods )|
