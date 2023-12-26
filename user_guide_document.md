@@ -8,8 +8,6 @@
 
 # how to use?
 
-### **just input a text like this (1 0+(8!!14  2log76-7 7 8))\*10/10+ (2^5)+10sin30 in console or 136+653*542 in interface and wait for output**
-
-### **notice for using sin you should /use this format (  number sin number  ) first number is going to multiply the answer of sin if you dont want it to multiply use 1 / sinus here is in degree**
+##**use number and operator buttons to write your problem  equal sign for viewing the result use DEL for deleting last character AC to clear whole input and mem for viewing last solved problems and their answers and use Ans for using last answer calculated(can moves backward in answers with mem) EXP button is just a place holder for now!**
 
 # please wait until next versions for improvment
