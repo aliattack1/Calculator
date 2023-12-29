@@ -10,6 +10,7 @@ class advanced_interface:
         self.is_seen = False
         self.memory_list = []
         self.backward = 0
+        self.opnum = 0
 
         # frames
         frame1 = tk.Frame()
@@ -25,6 +26,21 @@ class advanced_interface:
 
         self.label2 = tk.Label(background="#4F6467", foreground="white", height=1, master=frame1)
         self.label2.pack(fill=tk.X)
+
+
+        self.label3 = tk.Label(text="you had done nothing yet", background="lightgreen", foreground="black",
+                               master=frame2, wraplength=100)
+        self.label3.grid(column=6, row=2, sticky="nswe")
+
+        self.label4 = tk.Label(text=".........", background="lightgreen", foreground="black",
+                               master=frame2, wraplength=100)
+        self.label4.grid(column=6, row=3, sticky="nswe")
+
+        self.label5 = tk.Label(text=".........", background="lightgreen", foreground="black",
+                               master=frame2, wraplength=100)
+        self.label5.grid(column=6, row=4, sticky="nswe")
+
+
 
         # buttons
         btn_0 = tk.Button(background="#FCA311", foreground="#14213D", text="0", height=5, width=10, master=frame2,
@@ -67,9 +83,9 @@ class advanced_interface:
                                   master=frame2, command=self.ev_remaining)
         btn_last_answer = tk.Button(background="#FCA311", foreground="#14213D", text="Ans", height=5, width=10,
                                     master=frame2, command=self.ev_ans)
-        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", height=5, width=10, master=frame2,
+        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", height=5, width=20, master=frame2,
                             command=self.ev_DEL)
-        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", height=5, width=10, master=frame2,
+        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", height=5, width=20, master=frame2,
                            command=self.ev_AC)
         btn_parentheses_end = tk.Button(background="#FCA311", foreground="#14213D", text=")", height=5, width=10,
                                         master=frame2, command=self.ev_parentheses_end)
@@ -80,32 +96,32 @@ class advanced_interface:
         btn_change_mod = tk.Button(background="#FCA311", foreground="#14213D", text="mod", height=5, width=10,
                                    master=frame2, command=self.ev_change_mode)
         btn_sin = tk.Button(background="#FCA311", foreground="#14213D", text="sin", height=5, width=10,
-                                   master=frame2, command=self.ev_sin)
+                            master=frame2, command=self.ev_sin)
         btn_cos = tk.Button(background="#FCA311", foreground="#14213D", text="cos", height=5, width=10,
-                                   master=frame2, command=self.ev_cos)
+                            master=frame2, command=self.ev_cos)
         btn_tan = tk.Button(background="#FCA311", foreground="#14213D", text="tan", height=5, width=10,
-                                   master=frame2, command=self.ev_tan)
+                            master=frame2, command=self.ev_tan)
         btn_cot = tk.Button(background="#FCA311", foreground="#14213D", text="cot", height=5, width=10,
-                                   master=frame2, command=self.ev_cot)
+                            master=frame2, command=self.ev_cot)
         btn_log = tk.Button(background="#FCA311", foreground="#14213D", text="log", height=5, width=10,
-                                   master=frame2, command=self.ev_log)
+                            master=frame2, command=self.ev_log)
         btn_ln = tk.Button(background="#FCA311", foreground="#14213D", text="ln", height=5, width=10,
-                                   master=frame2, command=self.ev_ln)
+                            master=frame2, command=self.ev_ln)
         btn_ft = tk.Button(background="#FCA311", foreground="#14213D", text="!!", height=5, width=10,
-                                   master=frame2, command=self.ev_ft)
+                            master=frame2, command=self.ev_ft)
 
         btn_sin.grid(column=5, row=1)
         btn_cos.grid(column=5, row=2)
         btn_tan.grid(column=5, row=3)
         btn_cot.grid(column=5, row=4)
         btn_ft.grid(column=3, row=0)
-        btn_log.grid(column=6, row=1)
+        btn_log.grid(column=5, row=0)
         btn_ln.grid(column=4, row=0)
 
         btn_power.grid(column=0, row=0)
         btn_memory.grid(column=1, row=0)
         btn_change_mod.grid(column=2, row=0)
-        btn_DEL.grid(column=5, row=0)
+        btn_DEL.grid(column=6, row=1)
         btn_AC.grid(column=6, row=0)
         btn_parentheses_end.grid(column=4, row=1)
         btn_parentheses_start.grid(column=3, row=1)
@@ -132,12 +148,10 @@ class advanced_interface:
 
         self.window.mainloop()
 
-
-
-
-
-
     def new_input(self, inp):
+        if inp in "+-/*^%sincostancotlogln!!":
+            self.opnum += 1
+
 
         if self.is_seen:
             self.label.config(text="")
@@ -145,42 +159,32 @@ class advanced_interface:
         last_text = self.label["text"]
         self.label.config(text=last_text+inp)
 
-
     def ev_0(self):
         self.new_input("0")
-
 
     def ev_1(self):
         self.new_input("1")
 
-
     def ev_2(self):
         self.new_input("2")
-
 
     def ev_3(self):
         self.new_input("3")
 
-
     def ev_4(self):
         self.new_input("4")
-
 
     def ev_5(self):
         self.new_input("5")
 
-
     def ev_6(self):
         self.new_input("6")
-
 
     def ev_7(self):
         self.new_input("7")
 
-
     def ev_8(self):
         self.new_input("8")
-
 
     def ev_9(self):
         self.new_input("9")
@@ -189,60 +193,54 @@ class advanced_interface:
     def ev_plus(self):
         self.new_input("+")
 
-
     def ev_minus(self):
         self.new_input("-")
-
 
     def ev_multiple(self):
         self.new_input("*")
 
-
     def ev_divide(self):
         self.new_input("/")
-
 
     def ev_ashar(self):
         self.new_input(".")
 
-
     def ev_equal(self):
-        self.label2.config(text=self.calculator.Calculator.calculate(self.utility.input_checker.action(self.label["text"])))
-        self.memory_list.append((self.label["text"], self.label2["text"]))
+        try:
+            self.label2.config(text=self.calculator.Calculator.calculate(self.utility.input_checker.action(self.label["text"])))
+            self.memory_list.append((self.label["text"], self.label2["text"]))
+            self.label3.config(text=f"here; {str(len(self.memory_list))} problems have been solved")
+            self.label4.config(text=f"in last problem you used {self.opnum} functions and operations")
+            self.label5.config(text=".........", background="lightgreen", foreground="black")
+        except:
+            self.label5.config(text="wrong syntax!", background="red", foreground="blue")
         self.is_seen = True
         self.backward = 0
-
+        self.opnum = 0
 
     def ev_power(self):
         self.new_input("^")
 
-
     def ev_remaining(self):
         self.new_input("%")
-
 
     def ev_parentheses_start(self):
         self.new_input("(")
 
-
     def ev_parentheses_end(self):
         self.new_input(")")
-
 
     def ev_change_mode(self):
         self.window.destroy()
         global simple_interface
         a = simple_interface()
 
-
     def ev_AC(self):
         self.label.config(text="")
         self.label2.config(text="")
 
-
     def ev_DEL(self):
         self.label.config(text=self.label["text"][0:len(self.label["text"])-1])
-
 
     def ev_mem(self):
         self.backward += 1
@@ -391,11 +389,6 @@ class simple_interface:
 
         self.window.mainloop()
 
-
-
-
-
-
     def new_input(self, inp):
 
         if self.is_seen:
@@ -404,66 +397,50 @@ class simple_interface:
         last_text = self.label["text"]
         self.label.config(text=last_text+inp)
 
-
     def ev_0(self):
         self.new_input("0")
-
 
     def ev_1(self):
         self.new_input("1")
 
-
     def ev_2(self):
         self.new_input("2")
-
 
     def ev_3(self):
         self.new_input("3")
 
-
     def ev_4(self):
         self.new_input("4")
-
 
     def ev_5(self):
         self.new_input("5")
 
-
     def ev_6(self):
         self.new_input("6")
-
 
     def ev_7(self):
         self.new_input("7")
 
-
     def ev_8(self):
         self.new_input("8")
-
 
     def ev_9(self):
         self.new_input("9")
 
-
     def ev_plus(self):
         self.new_input("+")
-
 
     def ev_minus(self):
         self.new_input("-")
 
-
     def ev_multiple(self):
         self.new_input("*")
-
 
     def ev_divide(self):
         self.new_input("/")
 
-
     def ev_ashar(self):
         self.new_input(".")
-
 
     def ev_equal(self):
         self.label2.config(text=self.calculator.Calculator.calculate(self.utility.input_checker.action(self.label["text"])))
@@ -471,38 +448,29 @@ class simple_interface:
         self.is_seen = True
         self.backward = 0
 
-
     def ev_power(self):
         self.new_input("^")
-
 
     def ev_remaining(self):
         self.new_input("%")
 
-
     def ev_parentheses_start(self):
         self.new_input("(")
 
-
     def ev_parentheses_end(self):
         self.new_input(")")
-
 
     def ev_change_mode(self):
         self.window.destroy()
         global advanced_interface
         b = advanced_interface()
 
-
-
     def ev_AC(self):
         self.label.config(text="")
         self.label2.config(text="")
 
-
     def ev_DEL(self):
         self.label.config(text=self.label["text"][0:len(self.label["text"])-1])
-
 
     def ev_mem(self):
         self.backward += 1
