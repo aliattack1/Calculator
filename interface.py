@@ -249,6 +249,10 @@ class advanced_interface:
     def ev_AC(self):
         self.label.config(text="")
         self.label2.config(text="")
+        self.opnum = 0
+        self.memory_list = []
+        self.label3.config(text="you had done nothing yet")
+        self.label4.config(text=".........")
 
     def ev_DEL(self):
         self.label.config(text=self.label["text"][0:len(self.label["text"])-1])
@@ -494,6 +498,8 @@ class simple_interface:
     def ev_AC(self):
         self.label.config(text="")
         self.label2.config(text="")
+        self.memory_list = []
+        self.opnum = 0
 
     def ev_DEL(self):
         self.label.config(text=self.label["text"][0:len(self.label["text"])-1])
