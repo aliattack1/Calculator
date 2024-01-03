@@ -1,6 +1,6 @@
 class advanced_interface:
 
-    def __init__(self, num=0):
+    def __init__(self, num=0, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
         self.tk = tk
@@ -9,9 +9,9 @@ class advanced_interface:
         if num == 0:
             self.window = tk.Tk()
         self.is_seen = False
-        self.memory_list = []
+        self.memory_list = memorylist
         self.backward = 0
-        self.opnum = 0
+        self.opnum = opnum
         if num == 0:
             # frames
             frame1 = tk.Frame()
@@ -147,6 +147,11 @@ class advanced_interface:
             btn_multiple.grid(column=3, row=2)
             btn_divide.grid(column=4, row=2)
 
+            if self.memory_list:
+                self.label3.config(text=f"here; {str(len(self.memory_list))} problems have been solved")
+
+            if self.opnum:
+                self.label4.config(text=f"in last problem you used {self.opnum} functions and operations")
 
             self.window.mainloop()
 
@@ -236,9 +241,9 @@ class advanced_interface:
         global simple_interface
         if num == 0:
             self.window.destroy()
-            a = simple_interface()
+            a = simple_interface(memorylist=self.memory_list, opnum=self.opnum)
         else:
-            a = simple_interface()
+            a = simple_interface(memorylist=self.memory_list, opnum=self.opnum)
             return a.window
 
     def ev_AC(self):
@@ -285,7 +290,7 @@ class advanced_interface:
 
 class simple_interface:
 
-    def __init__(self):
+    def __init__(self, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
         self.tk = tk
@@ -293,9 +298,9 @@ class simple_interface:
         self.utility = utility
         self.window = tk.Tk()
         self.is_seen = False
-        self.memory_list = []
+        self.memory_list = memorylist
         self.backward = 0
-
+        self.opnum = opnum
         # frames
         frame1 = tk.Frame()
         frame1.pack(fill=tk.X)
@@ -396,6 +401,8 @@ class simple_interface:
         self.window.mainloop()
 
     def new_input(self, inp):
+        if inp in "+-/*^%sincostancotlogln!!":
+            self.opnum += 1
 
         if self.is_seen:
             self.label.config(text="")
@@ -482,7 +489,7 @@ class simple_interface:
     def ev_change_mode(self):
         self.window.destroy()
         global advanced_interface
-        b = advanced_interface()
+        b = advanced_interface(memorylist=self.memory_list, opnum=self.opnum)
 
     def ev_AC(self):
         self.label.config(text="")
