@@ -21,3 +21,8 @@
 | 1.0.0        | added user interface |
 | 1.1.0        | changed 4×4 to 5×5 button  structure |
 | 1.2.0        | restructured interface file to OOP style |
+| 1.3.0        | added advanced_interface class used by mod button to add functions into interface |
+| 1.4.0        | replaced some buttons in advanced interface added some labels in advanced interface free space to show: number of solved problems / number of operations and functions used in last problem / an error if the syntax is wrong |
+| 1.4.1        | added syntax error handling to simple interface |
+| 1.4.2        | made a connection between simple interface and advanced interfaces memory(last done operations) |
+| 1.4.3        | AC button now clears memory too |
