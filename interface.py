@@ -1,5 +1,14 @@
 class advanced_interface:
 
+    def document(self):
+        nwindow = self.tk.Tk()
+        nwindow.title("document")
+
+        label = self.tk.Label(text=self.doc, background="cyan", master=nwindow)
+        label.grid(column=0, row=0)
+        label1 = self.tk.Label(text=self.doc2, background="lightblue", master=nwindow)
+        label1.grid(column=1, row=0)
+        nwindow.update()
 
     def binds(self):
 
@@ -42,7 +51,7 @@ class advanced_interface:
         self.window.bind('<space>', lambda event: self.ev_mem())
         self.window.bind('@', lambda event: self.ev_ans())
         self.window.bind('r', lambda event: self.ev_AR())
-        self.window.bind('m', lambda event: self.ev_MRC()) 
+        self.window.bind('m', lambda event: self.ev_MRC())
 
 
 
@@ -61,9 +70,61 @@ class advanced_interface:
         self.backward = 0
         self.opnum = opnum
         self.mm = 0
-
-
+        self.doc = "button    \n" \
+                   "_____________\n" \
+                   "numbers     \n" \
+                   "parenthese  \n" \
+                   "operations  \n" \
+                   "mem         \n" \
+                   "Ac         \n" \
+                   "DEL        \n" \
+                   "exit      \n" \
+                   "equal or =  \n" \
+                   "mod         \n" \
+                   "Ans         \n" \
+                   "sin,cos,...\n" \
+                   "Autoreply\n" \
+                   "MRC\n" \
+                   "!!"
+        self.doc2 = "shortcut key\n" \
+                    "_____________\n" \
+                    "numbers\n" \
+                    "parentheses\n" \
+                    "operations\n" \
+                    "Space\n" \
+                    "Escape/ Esc\n" \
+                    "Backspace\n" \
+                    "e or q\n" \
+                    "Enter or =\n" \
+                    "Tab\n" \
+                    "@\n" \
+                    "t,a,n,c,o,s,i,l,g\n" \
+                    "r\n" \
+                    "m\n" \
+                    "!23-"
         self.binds()
+
+
+        self.window.title('Calculator')
+
+        # create a menubar
+        menubar = self.tk.Menu(self.window)
+        self.window.config(menu=menubar)
+
+        # create a menu
+        file_menu = self.tk.Menu(menubar)
+
+        # add a menu item to the menu
+        file_menu.add_command(
+            label='keyboard_buttons',
+            command=self.document
+        )
+
+        # add the File menu to the menubar
+        menubar.add_cascade(
+            label="document",
+            menu=file_menu
+        )
 
         if num == 0:
             # frames
@@ -422,6 +483,16 @@ class simple_interface:
         self.window.bind('@', lambda event: self.ev_ans())
 
 
+    def document(self):
+        nwindow = self.tk.Tk()
+        nwindow.title("document")
+
+        label = self.tk.Label(text=self.doc, background="cyan", master=nwindow)
+        label.grid(column=0, row=0)
+        label1 = self.tk.Label(text=self.doc2, background="lightblue", master=nwindow)
+        label1.grid(column=1, row=0)
+        nwindow.update()
+
     def __init__(self, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
@@ -434,6 +505,49 @@ class simple_interface:
         self.backward = 0
         self.opnum = opnum
         self.binds()
+        self.window.title("Calculator")
+        self.doc = "button    \n" \
+                   "_____________\n" \
+                   "numbers     \n" \
+                   "parenthese  \n" \
+                   "operations  \n" \
+                   "mem         \n" \
+                   "Ac         \n" \
+                   "DEL        \n" \
+                   "exit      \n" \
+                   "equal or =  \n" \
+                   "mod         \n" \
+                   "Ans         "
+        self.doc2 = "shortcut key\n" \
+                    "_____________\n" \
+                    "numbers\n" \
+                    "parentheses\n" \
+                    "operations\n" \
+                    "Space\n" \
+                    "Escape/ Esc\n" \
+                    "Backspace\n" \
+                    "e or q\n" \
+                    "Enter or =\n" \
+                    "Tab\n" \
+                    "@"
+        menubar = self.tk.Menu(self.window)
+        self.window.config(menu=menubar)
+
+        # create a menu
+        file_menu = self.tk.Menu(menubar)
+
+        # add a menu item to the menu
+        file_menu.add_command(
+            label='keyboard_buttons',
+            command=self.document
+        )
+
+        # add the File menu to the menubar
+        menubar.add_cascade(
+            label="document",
+            menu=file_menu
+        )
+
         # frames
         frame1 = tk.Frame()
         frame1.pack(fill=tk.X)
