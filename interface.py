@@ -1,5 +1,53 @@
 class advanced_interface:
 
+
+    def binds(self):
+
+        self.window.bind('0', lambda event: self.ev_0())
+        self.window.bind('1', lambda event: self.ev_1())
+        self.window.bind('2', lambda event: self.ev_2())
+        self.window.bind('3', lambda event: self.ev_3())
+        self.window.bind('4', lambda event: self.ev_4())
+        self.window.bind('5', lambda event: self.ev_5())
+        self.window.bind('6', lambda event: self.ev_6())
+        self.window.bind('7', lambda event: self.ev_7())
+        self.window.bind('8', lambda event: self.ev_8())
+        self.window.bind('9', lambda event: self.ev_9())
+        self.window.bind('s', lambda event: self.new_input("s"))
+        self.window.bind('i', lambda event: self.new_input("i"))
+        self.window.bind('n', lambda event: self.new_input("n"))
+        self.window.bind('a', lambda event: self.new_input("a"))
+        self.window.bind('t', lambda event: self.new_input("t"))
+        self.window.bind('c', lambda event: self.new_input("c"))
+        self.window.bind('o', lambda event: self.new_input("o"))
+        self.window.bind('l', lambda event: self.new_input("l"))
+        self.window.bind('g', lambda event: self.new_input("g"))
+        self.window.bind('!', lambda event: self.new_input("!!"))
+        self.window.bind('.', lambda event: self.new_input("."))
+        self.window.bind('+', lambda event: self.new_input("+"))
+        self.window.bind('-', lambda event: self.new_input("-"))
+        self.window.bind('/', lambda event: self.new_input("/"))
+        self.window.bind('*', lambda event: self.new_input("*"))
+        self.window.bind('%', lambda event: self.new_input("%"))
+        self.window.bind('^', lambda event: self.new_input("^"))
+        self.window.bind('(', lambda event: self.new_input("("))
+        self.window.bind(')', lambda event: self.new_input(")"))
+        self.window.bind('e', lambda event: quit())
+        self.window.bind('q', lambda event: quit())
+        self.window.bind('=', lambda event: self.ev_equal())
+        self.window.bind('<Return>', lambda event: self.ev_equal())
+        self.window.bind('<BackSpace>', lambda event: self.ev_DEL())
+        self.window.bind('<Escape>', lambda event: self.ev_AC())
+        self.window.bind('<Tab>', lambda event: self.ev_change_mode())
+        self.window.bind('<space>', lambda event: self.ev_mem())
+        self.window.bind('@', lambda event: self.ev_ans())
+        self.window.bind('r', lambda event: self.ev_AR())
+        self.window.bind('m', lambda event: self.ev_MRC()) 
+
+
+
+
+
     def __init__(self, num=0, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
@@ -13,6 +61,10 @@ class advanced_interface:
         self.backward = 0
         self.opnum = opnum
         self.mm = 0
+
+
+        self.binds()
+
         if num == 0:
             # frames
             frame1 = tk.Frame()
@@ -338,6 +390,38 @@ class advanced_interface:
 
 class simple_interface:
 
+    def binds(self):
+        self.window.bind('0', lambda event: self.ev_0())
+        self.window.bind('1', lambda event: self.ev_1())
+        self.window.bind('2', lambda event: self.ev_2())
+        self.window.bind('3', lambda event: self.ev_3())
+        self.window.bind('4', lambda event: self.ev_4())
+        self.window.bind('5', lambda event: self.ev_5())
+        self.window.bind('6', lambda event: self.ev_6())
+        self.window.bind('7', lambda event: self.ev_7())
+        self.window.bind('8', lambda event: self.ev_8())
+        self.window.bind('9', lambda event: self.ev_9())
+        self.window.bind('.', lambda event: self.new_input("."))
+        self.window.bind('+', lambda event: self.new_input("+"))
+        self.window.bind('-', lambda event: self.new_input("-"))
+        self.window.bind('/', lambda event: self.new_input("/"))
+        self.window.bind('*', lambda event: self.new_input("*"))
+        self.window.bind('%', lambda event: self.new_input("%"))
+        self.window.bind('^', lambda event: self.new_input("^"))
+        self.window.bind('(', lambda event: self.new_input("("))
+        self.window.bind(')', lambda event: self.new_input(")"))
+
+        self.window.bind('q', lambda event: quit())
+        self.window.bind('e', lambda event: quit())
+        self.window.bind('=', lambda event: self.ev_equal())
+        self.window.bind('<Return>', lambda event: self.ev_equal())
+        self.window.bind('<BackSpace>', lambda event: self.ev_DEL())
+        self.window.bind('<Escape>', lambda event: self.ev_AC())
+        self.window.bind('<Tab>', lambda event: self.ev_change_mode())
+        self.window.bind('<space>', lambda event: self.ev_mem())
+        self.window.bind('@', lambda event: self.ev_ans())
+
+
     def __init__(self, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
@@ -349,6 +433,7 @@ class simple_interface:
         self.memory_list = memorylist
         self.backward = 0
         self.opnum = opnum
+        self.binds()
         # frames
         frame1 = tk.Frame()
         frame1.pack(fill=tk.X)
