@@ -12,6 +12,7 @@ class advanced_interface:
         self.memory_list = memorylist
         self.backward = 0
         self.opnum = opnum
+        self.mm = 0
         if num == 0:
             # frames
             frame1 = tk.Frame()
@@ -31,15 +32,15 @@ class advanced_interface:
 
             self.label3 = tk.Label(text="you had done nothing yet", background="lightgreen", foreground="black",
                                    master=frame2, wraplength=100)
-            self.label3.grid(column=6, row=2, sticky="nswe")
+            self.label3.grid(column=7, row=2, sticky="nswe")
 
             self.label4 = tk.Label(text=".........", background="lightgreen", foreground="black",
                                    master=frame2, wraplength=100)
-            self.label4.grid(column=6, row=3, sticky="nswe")
+            self.label4.grid(column=7, row=3, sticky="nswe")
 
             self.label5 = tk.Label(text=".........", background="lightgreen", foreground="black",
                                    master=frame2, wraplength=100)
-            self.label5.grid(column=6, row=4, sticky="nswe")
+            self.label5.grid(column=7, row=4, sticky="nswe")
 
 
 
@@ -110,42 +111,63 @@ class advanced_interface:
                                 master=frame2, command=self.ev_ln)
             btn_ft = tk.Button(background="#FCA311", foreground="#14213D", text="!!", height=5, width=10,
                                 master=frame2, command=self.ev_ft)
+            btn_00 = tk.Button(background="#FCA311", foreground="#14213D", text="00", height=5, width=10,
+                                master=frame2, command=self.ev_00)
+            btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", text="Auto\nreply", height=5, width=10,
+                                master=frame2, command=self.ev_AR)
+            btn_MRC = tk.Button(background="#FCA311", foreground="#14213D", text="MRC", height=5, width=10,
+                                master=frame2, command=self.ev_MRC)
+            btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", text="M+", height=5, width=10,
+                                master=frame2, command=self.ev_Mp)
+            btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", text="M-", height=5, width=10,
+                                master=frame2, command=self.ev_Mm)
 
-            btn_sin.grid(column=5, row=1)
-            btn_cos.grid(column=5, row=2)
-            btn_tan.grid(column=5, row=3)
-            btn_cot.grid(column=5, row=4)
-            btn_ft.grid(column=3, row=0)
-            btn_log.grid(column=5, row=0)
-            btn_ln.grid(column=4, row=0)
 
-            btn_power.grid(column=0, row=0)
-            btn_memory.grid(column=1, row=0)
-            btn_change_mod.grid(column=2, row=0)
-            btn_DEL.grid(column=6, row=1)
-            btn_AC.grid(column=6, row=0)
-            btn_parentheses_end.grid(column=4, row=1)
-            btn_parentheses_start.grid(column=3, row=1)
-            btn_remaining.grid(column=3, row=4)
-            btn_last_answer.grid(column=2, row=4)
+            btn_MRC.grid(column=0, row=1)
 
-            btn_7.grid(column=0, row=1)
-            btn_8.grid(column=1, row=1)
-            btn_9.grid(column=2, row=1)
-            btn_4.grid(column=0, row=2)
-            btn_5.grid(column=1, row=2)
-            btn_6.grid(column=2, row=2)
-            btn_1.grid(column=0, row=3)
-            btn_2.grid(column=1, row=3)
-            btn_3.grid(column=2, row=3)
-            btn_0.grid(column=0, row=4)
+            btn_Mp.grid(column=0, row=2)
 
-            btn_ashar.grid(column=1, row=4)
-            btn_equal.grid(column=4, row=4)
-            btn_plus.grid(column=3, row=3)
-            btn_minus.grid(column=4, row=3)
-            btn_multiple.grid(column=3, row=2)
-            btn_divide.grid(column=4, row=2)
+
+
+            btn_Mm.grid(column=0, row=3)
+
+            btn_auto_r.grid(column=0, row=0)
+            btn_00.grid(column=0, row=4)
+            btn_sin.grid(column=6, row=1)
+            btn_cos.grid(column=6, row=2)
+            btn_tan.grid(column=6, row=3)
+            btn_cot.grid(column=6, row=4)
+            btn_ft.grid(column=4, row=0)
+            btn_log.grid(column=6, row=0)
+            btn_ln.grid(column=5, row=0)
+
+            btn_power.grid(column=1, row=0)
+            btn_memory.grid(column=2, row=0)
+            btn_change_mod.grid(column=3, row=0)
+            btn_DEL.grid(column=7, row=1)
+            btn_AC.grid(column=7, row=0)
+            btn_parentheses_end.grid(column=5, row=1)
+            btn_parentheses_start.grid(column=4, row=1)
+            btn_remaining.grid(column=4, row=4)
+            btn_last_answer.grid(column=3, row=4)
+
+            btn_7.grid(column=1, row=1)
+            btn_8.grid(column=2, row=1)
+            btn_9.grid(column=3, row=1)
+            btn_4.grid(column=1, row=2)
+            btn_5.grid(column=2, row=2)
+            btn_6.grid(column=3, row=2)
+            btn_1.grid(column=1, row=3)
+            btn_2.grid(column=2, row=3)
+            btn_3.grid(column=3, row=3)
+            btn_0.grid(column=1, row=4)
+
+            btn_ashar.grid(column=2, row=4)
+            btn_equal.grid(column=5, row=4)
+            btn_plus.grid(column=4, row=3)
+            btn_minus.grid(column=5, row=3)
+            btn_multiple.grid(column=4, row=2)
+            btn_divide.grid(column=5, row=2)
 
             if self.memory_list:
                 self.label3.config(text=f"here; {str(len(self.memory_list))} problems have been solved")
@@ -196,6 +218,8 @@ class advanced_interface:
     def ev_9(self):
         self.new_input("9")
 
+    def ev_00(self):
+        self.new_input("00")
 
     def ev_plus(self):
         self.new_input("+")
@@ -289,6 +313,26 @@ class advanced_interface:
 
     def ev_ln(self):
         self.new_input("ln")
+
+    def ev_MRC(self):
+        self.new_input(str(self.mm))
+
+    def ev_Mp(self):
+        self.mm = float(self.label2["text"])
+
+    def ev_Mm(self):
+        self.mm = -float(self.label2["text"])
+
+    def ev_AR(self):
+        for a in self.memory_list:
+            self.label.config(text=a[0])
+            self.label2.config(text=a[1])
+            self.window.update()
+            from time import sleep as sl
+            sl(1)
+
+
+
 
 
 
