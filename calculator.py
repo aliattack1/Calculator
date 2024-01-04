@@ -69,6 +69,10 @@ class Calculator:
 
     @classmethod
     def calculate(cls, inp):
+        """
+
+        :rtype: object
+        """
         if '(' in inp or ')' in inp:
             inp_part_1, inp_part_2, inp_part_3 = cls.parentheses(inp)
             new_inp = cls.calculate(inp_part_1)
@@ -131,4 +135,5 @@ for key in op.dictionary:
     Calculator.operation_and_function_register(key, op.dictionary[key].action)
 Calculator.importance_dict = op.importance_dictionary
 
-print(Calculator.calculate(utility.input_checker.action(input())))
+if __name__ == "__main__":
+    print(Calculator.calculate(utility.input_checker.action(input())))

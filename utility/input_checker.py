@@ -1,5 +1,6 @@
-# input checker!
 def action(inp):
+    if inp.lower() =="exit" or inp.lower() =="quit":
+        quit()
     start_p_count = 0
     end_p_count = 0
     for letter in inp:
