@@ -27,3 +27,4 @@
 | 1.4.2        | made a connection between simple interface and advanced interfaces memory(last done operations) |
 | 1.4.3        | AC button now clears memory too |
 | 1.5.0        | added new layer of buttons to the left of advanced interface including : 00 , MRC , M+ , M- , Auto Reply (reviews all done problems in memory each for 1 second ) |
+| 1.5.1        | changed main flow to start and choose between interfaces (text,visual) from main file |
