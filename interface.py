@@ -10,6 +10,12 @@ class advanced_interface:
         label1.grid(column=1, row=0)
         nwindow.update()
 
+    def show_short(self, event, text, collumn, row):
+        self.last_short = self.tk.Toplevel()
+        self.last_short.overrideredirect(True)
+        self.last_short.geometry("+{}+{}".format(20 + self.x+(collumn*85), 180 + self.y+(row*85)))
+        shortcut_label = self.tk.Label(self.last_short, text=text, background="yellow")
+        shortcut_label.pack()
     def binds(self):
 
         self.window.bind('0', lambda event: self.ev_0())
@@ -54,7 +60,10 @@ class advanced_interface:
         self.window.bind('m', lambda event: self.ev_MRC())
 
 
-
+    def gem(self):
+        geometry_temp = self.utility.input_to_list.action("sin", "+-x", self.window.geometry())
+        self.x = int(geometry_temp[4])
+        self.y = int(geometry_temp[6])
 
 
     def __init__(self, num=0, memorylist=[], opnum=0):
@@ -65,11 +74,18 @@ class advanced_interface:
         self.utility = utility
         if num == 0:
             self.window = tk.Tk()
+            self.window.geometry("+{}+{}".format(100, 100))
+
+        self.window.bind("<Configure>", lambda event: self.gem())
+        self.gem()
+
+
         self.is_seen = False
         self.memory_list = memorylist
         self.backward = 0
         self.opnum = opnum
         self.mm = 0
+        self.last_short = None
         self.doc = "button    \n" \
                    "_____________\n" \
                    "numbers     \n" \
@@ -101,20 +117,20 @@ class advanced_interface:
                     "t,a,n,c,o,s,i,l,g\n" \
                     "r\n" \
                     "m\n" \
-                    "!23-"
+                    "!"
         self.binds()
 
 
         self.window.title('Calculator')
 
-        # create a menubar
+        # create geometry_temp menubar
         menubar = self.tk.Menu(self.window)
         self.window.config(menu=menubar)
 
-        # create a menu
+        # create geometry_temp menu
         file_menu = self.tk.Menu(menubar)
 
-        # add a menu item to the menu
+        # add geometry_temp menu item to the menu
         file_menu.add_command(
             label='keyboard_buttons',
             command=self.document
@@ -198,43 +214,146 @@ class advanced_interface:
                                       master=frame2, command=self.ev_remaining)
             btn_last_answer = tk.Button(background="#FCA311", foreground="#14213D", text="Ans", height=5, width=10,
                                         master=frame2, command=self.ev_ans)
+            btn_last_answer.bind("<Enter>", lambda event: self.show_short(event, "@", 3, 4))
+            btn_last_answer.bind("<Leave>", lambda event: self.last_short.destroy())
             btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", height=5, width=20, master=frame2,
                                 command=self.ev_DEL)
+            btn_DEL.bind("<Enter>", lambda event: self.show_short(event, "Backspace", 7, 1))
+            btn_DEL.bind("<Leave>", lambda event: self.last_short.destroy())
             btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", height=5, width=20, master=frame2,
                                command=self.ev_AC)
+            btn_AC.bind("<Enter>", lambda event: self.show_short(event, "Esc", 7, 0))
+            btn_AC.bind("<Leave>", lambda event: self.last_short.destroy())
+
+
             btn_parentheses_end = tk.Button(background="#FCA311", foreground="#14213D", text=")", height=5, width=10,
                                             master=frame2, command=self.ev_parentheses_end)
             btn_power = tk.Button(background="#FCA311", foreground="#14213D", text="^", height=5, width=10, master=frame2,
                                   command=self.ev_power)
             btn_memory = tk.Button(background="#FCA311", foreground="#14213D", text="mem", height=5, width=10,
                                    master=frame2, command=self.ev_mem)
+            btn_memory.bind("<Enter>", lambda event: self.show_short(event, "space", 2, 0))
+            btn_memory.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_change_mod = tk.Button(background="#FCA311", foreground="#14213D", text="mod", height=5, width=10,
                                        master=frame2, command=self.ev_change_mode)
+            btn_change_mod.bind("<Enter>", lambda event: self.show_short(event, "Tab", 3, 0))
+            btn_change_mod.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_sin = tk.Button(background="#FCA311", foreground="#14213D", text="sin", height=5, width=10,
                                 master=frame2, command=self.ev_sin)
+            btn_sin.bind("<Enter>", lambda event: self.show_short(event, "s+i+n", 6, 1))
+            btn_sin.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_cos = tk.Button(background="#FCA311", foreground="#14213D", text="cos", height=5, width=10,
                                 master=frame2, command=self.ev_cos)
+            btn_cos.bind("<Enter>", lambda event: self.show_short(event, "c+o+s", 6, 2))
+            btn_cos.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_tan = tk.Button(background="#FCA311", foreground="#14213D", text="tan", height=5, width=10,
                                 master=frame2, command=self.ev_tan)
+            btn_tan.bind("<Enter>", lambda event: self.show_short(event, "t+a+n", 6, 3))
+            btn_tan.bind("<Leave>", lambda event: self.last_short.destroy())
+
+
             btn_cot = tk.Button(background="#FCA311", foreground="#14213D", text="cot", height=5, width=10,
                                 master=frame2, command=self.ev_cot)
+            btn_cot.bind("<Enter>", lambda event: self.show_short(event, "c+o+t", 6, 4))
+            btn_cot.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_log = tk.Button(background="#FCA311", foreground="#14213D", text="log", height=5, width=10,
                                 master=frame2, command=self.ev_log)
+            btn_log.bind("<Enter>", lambda event: self.show_short(event, "l+o+g", 6, 0))
+            btn_log.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_ln = tk.Button(background="#FCA311", foreground="#14213D", text="ln", height=5, width=10,
                                 master=frame2, command=self.ev_ln)
+            btn_ln.bind("<Enter>", lambda event: self.show_short(event, "l+n", 5, 0))
+            btn_ln.bind("<Leave>", lambda event: self.last_short.destroy())
+
+
+
             btn_ft = tk.Button(background="#FCA311", foreground="#14213D", text="!!", height=5, width=10,
                                 master=frame2, command=self.ev_ft)
             btn_00 = tk.Button(background="#FCA311", foreground="#14213D", text="00", height=5, width=10,
                                 master=frame2, command=self.ev_00)
             btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", text="Auto\nreply", height=5, width=10,
                                 master=frame2, command=self.ev_AR)
+            btn_auto_r.bind("<Enter>", lambda event: self.show_short(event, "r", 0, 0))
+            btn_auto_r.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_MRC = tk.Button(background="#FCA311", foreground="#14213D", text="MRC", height=5, width=10,
                                 master=frame2, command=self.ev_MRC)
+            btn_MRC.bind("<Enter>", lambda event: self.show_short(event, "m", 0, 1))
+            btn_MRC.bind("<Leave>", lambda event: self.last_short.destroy())
+
             btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", text="M+", height=5, width=10,
                                 master=frame2, command=self.ev_Mp)
             btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", text="M-", height=5, width=10,
                                 master=frame2, command=self.ev_Mm)
 
+            btn_equal.bind("<Enter>", lambda event: self.show_short(event, "= or Enter", 5, 4))
+            btn_equal.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_1.bind("<Enter>", lambda event: self.show_short(event, "num1", 1, 3))
+            btn_1.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_2.bind("<Enter>", lambda event: self.show_short(event, "num2", 2, 3))
+            btn_2.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_3.bind("<Enter>", lambda event: self.show_short(event, "num3", 3, 3))
+            btn_3.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_4.bind("<Enter>", lambda event: self.show_short(event, "num4", 1, 2))
+            btn_4.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_5.bind("<Enter>", lambda event: self.show_short(event, "num5", 2, 2))
+            btn_5.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_6.bind("<Enter>", lambda event: self.show_short(event, "num6", 3, 2))
+            btn_6.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_7.bind("<Enter>", lambda event: self.show_short(event, "num7", 1, 1))
+            btn_7.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_8.bind("<Enter>", lambda event: self.show_short(event, "num8", 2, 1))
+            btn_8.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_9.bind("<Enter>", lambda event: self.show_short(event, "num9", 3, 1))
+            btn_9.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_0.bind("<Enter>", lambda event: self.show_short(event, "num0", 1, 4))
+            btn_0.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_ashar.bind("<Enter>", lambda event: self.show_short(event, ".", 2, 4))
+            btn_ashar.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_plus.bind("<Enter>", lambda event: self.show_short(event, "+", 4, 3))
+            btn_plus.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_minus.bind("<Enter>", lambda event: self.show_short(event, "-", 5, 3))
+            btn_minus.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_multiple.bind("<Enter>", lambda event: self.show_short(event, "*", 4, 2))
+            btn_multiple.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_divide.bind("<Enter>", lambda event: self.show_short(event, "/", 5, 2))
+            btn_divide.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_power.bind("<Enter>", lambda event: self.show_short(event, "shift + ^", 1, 0))
+            btn_power.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_parentheses_start.bind("<Enter>", lambda event: self.show_short(event, "shift + (", 4, 1))
+            btn_parentheses_start.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_parentheses_end.bind("<Enter>", lambda event: self.show_short(event, "shift + )", 5, 1))
+            btn_parentheses_end.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_remaining.bind("<Enter>", lambda event: self.show_short(event, "shift + %", 4, 4))
+            btn_remaining.bind("<Leave>", lambda event: self.last_short.destroy())
+
+            btn_ft.bind("<Enter>", lambda event: self.show_short(event, "shift + !", 4, 0))
+            btn_ft.bind("<Leave>", lambda event: self.last_short.destroy())
 
             btn_MRC.grid(column=0, row=1)
 
@@ -451,6 +570,13 @@ class advanced_interface:
 
 class simple_interface:
 
+    def show_short(self, event, text, collumn, row):
+        self.last_short = self.tk.Toplevel()
+        self.last_short.overrideredirect(True)
+        self.last_short.geometry("+{}+{}".format(10 + self.x+(collumn*85), 180 + self.y+(row*85)))
+        shortcut_label = self.tk.Label(self.last_short, text=text, background="yellow")
+        shortcut_label.pack()
+
     def binds(self):
         self.window.bind('0', lambda event: self.ev_0())
         self.window.bind('1', lambda event: self.ev_1())
@@ -493,10 +619,16 @@ class simple_interface:
         label1.grid(column=1, row=0)
         nwindow.update()
 
+    def gem(self):
+        geometry_temp = self.utility.input_to_list.action("sin", "+-x", self.window.geometry())
+        self.x = int(geometry_temp[4])
+        self.y = int(geometry_temp[6])
+
     def __init__(self, memorylist=[], opnum=0):
         import tkinter as tk
         import calculator, utility
         self.tk = tk
+        self.last_short = None
         self.calculator = calculator
         self.utility = utility
         self.window = tk.Tk()
@@ -504,6 +636,9 @@ class simple_interface:
         self.memory_list = memorylist
         self.backward = 0
         self.opnum = opnum
+        self.window.geometry("+{}+{}".format(100, 100))
+        self.window.bind("<Configure>", lambda event: self.gem())
+        self.gem()
         self.binds()
         self.window.title("Calculator")
         self.doc = "button    \n" \
@@ -616,6 +751,101 @@ class simple_interface:
                                master=frame2, command=self.ev_mem)
         btn_change_mod = tk.Button(background="#FCA311", foreground="#14213D", text="mod", height=5, width=10,
                                    master=frame2, command=self.ev_change_mode)
+        btn_last_answer.bind("<Enter>", lambda event: self.show_short(event, "@", 2, 4))
+        btn_last_answer.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_DEL.bind("<Enter>", lambda event: self.show_short(event, "Backspace", 3, 0))
+        btn_DEL.bind("<Leave>", lambda event: self.last_short.destroy())
+
+
+        btn_AC.bind("<Enter>", lambda event: self.show_short(event, "Esc", 4, 0))
+        btn_AC.bind("<Leave>", lambda event: self.last_short.destroy())
+        btn_memory.bind("<Enter>", lambda event: self.show_short(event, "space", 1, 0))
+        btn_memory.bind("<Leave>", lambda event: self.last_short.destroy())
+        btn_change_mod.bind("<Enter>", lambda event: self.show_short(event, "Tab", 2, 0))
+        btn_change_mod.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_equal.bind("<Enter>", lambda event: self.show_short(event, "= or Enter", 4, 4))
+        btn_equal.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_1.bind("<Enter>", lambda event: self.show_short(event, "num1", 0, 3))
+        btn_1.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_2.bind("<Enter>", lambda event: self.show_short(event, "num2", 1, 3))
+        btn_2.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_3.bind("<Enter>", lambda event: self.show_short(event, "num3", 2, 3))
+        btn_3.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_4.bind("<Enter>", lambda event: self.show_short(event, "num4", 0, 2))
+        btn_4.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_5.bind("<Enter>", lambda event: self.show_short(event, "num5", 1, 2))
+        btn_5.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_6.bind("<Enter>", lambda event: self.show_short(event, "num6", 2, 2))
+        btn_6.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_7.bind("<Enter>", lambda event: self.show_short(event, "num7", 0, 1))
+        btn_7.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_8.bind("<Enter>", lambda event: self.show_short(event, "num8", 1, 1))
+        btn_8.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_9.bind("<Enter>", lambda event: self.show_short(event, "num9", 2, 1))
+        btn_9.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_0.bind("<Enter>", lambda event: self.show_short(event, "num0", 0, 4))
+        btn_0.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_ashar.bind("<Enter>", lambda event: self.show_short(event, ".", 1, 4))
+        btn_ashar.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_plus.bind("<Enter>", lambda event: self.show_short(event, "+", 3, 3))
+        btn_plus.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_minus.bind("<Enter>", lambda event: self.show_short(event, "-", 4, 3))
+        btn_minus.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_multiple.bind("<Enter>", lambda event: self.show_short(event, "*", 3, 2))
+        btn_multiple.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_divide.bind("<Enter>", lambda event: self.show_short(event, "/", 4, 2))
+        btn_divide.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_power.bind("<Enter>", lambda event: self.show_short(event, "shift + ^", 0, 0))
+        btn_power.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_parentheses_start.bind("<Enter>", lambda event: self.show_short(event, "shift + (", 3, 1))
+        btn_parentheses_start.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_parentheses_end.bind("<Enter>", lambda event: self.show_short(event, "shift + )", 4, 1))
+        btn_parentheses_end.bind("<Leave>", lambda event: self.last_short.destroy())
+
+        btn_remaining.bind("<Enter>", lambda event: self.show_short(event, "shift + %", 3, 4))
+        btn_remaining.bind("<Leave>", lambda event: self.last_short.destroy())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         btn_power.grid(column=0, row=0)
         btn_memory.grid(column=1, row=0)
