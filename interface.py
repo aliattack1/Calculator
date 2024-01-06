@@ -67,16 +67,6 @@ class advanced_interface:
         self.window.bind('o', lambda event: self.new_input("o"))
         self.window.bind('l', lambda event: self.new_input("l"))
         self.window.bind('g', lambda event: self.new_input("g"))
-        self.window.bind('!', lambda event: self.new_input("!!"))
-        self.window.bind('.', lambda event: self.new_input("."))
-        self.window.bind('+', lambda event: self.new_input("+"))
-        self.window.bind('-', lambda event: self.new_input("-"))
-        self.window.bind('/', lambda event: self.new_input("/"))
-        self.window.bind('*', lambda event: self.new_input("*"))
-        self.window.bind('%', lambda event: self.new_input("%"))
-        self.window.bind('^', lambda event: self.new_input("^"))
-        self.window.bind('(', lambda event: self.new_input("("))
-        self.window.bind(')', lambda event: self.new_input(")"))
         self.window.bind('e', lambda event: quit())
         self.window.bind('q', lambda event: quit())
         self.window.bind('=', lambda event: self.ev_equal())
@@ -104,7 +94,7 @@ class advanced_interface:
         if num == 0:
             self.window = tk.Tk()
             self.window.geometry("+{}+{}".format(100, 100))
-        self.window.bind("<Configure>", lambda event: self.gem())
+            self.window.bind("<Configure>", lambda event: self.gem())
         self.gem()
         self.is_seen = False
         self.memory_list = memorylist
@@ -211,11 +201,61 @@ class advanced_interface:
     def new_input(self, inp):
         if inp in "+-/*^%sincostancotlogln!!":
             self.opnum += 1
+
+
         if self.is_seen:
             self.label.config(text="")
             self.is_seen = False
         last_text = self.label["text"]
         self.label.config(text=last_text+inp)
+
+    def ev_0(self):
+        self.new_input("0")
+
+    def ev_1(self):
+        self.new_input("1")
+
+    def ev_2(self):
+        self.new_input("2")
+
+    def ev_3(self):
+        self.new_input("3")
+
+    def ev_4(self):
+        self.new_input("4")
+
+    def ev_5(self):
+        self.new_input("5")
+
+    def ev_6(self):
+        self.new_input("6")
+
+    def ev_7(self):
+        self.new_input("7")
+
+    def ev_8(self):
+        self.new_input("8")
+
+    def ev_9(self):
+        self.new_input("9")
+
+    def ev_00(self):
+        self.new_input("00")
+
+    def ev_plus(self):
+        self.new_input("+")
+
+    def ev_minus(self):
+        self.new_input("-")
+
+    def ev_multiple(self):
+        self.new_input("*")
+
+    def ev_divide(self):
+        self.new_input("/")
+
+    def ev_ashar(self):
+        self.new_input(".")
 
     def ev_equal(self):
         try:
@@ -229,6 +269,18 @@ class advanced_interface:
         self.is_seen = True
         self.backward = 0
         self.opnum = 0
+
+    def ev_power(self):
+        self.new_input("^")
+
+    def ev_remaining(self):
+        self.new_input("%")
+
+    def ev_parentheses_start(self):
+        self.new_input("(")
+
+    def ev_parentheses_end(self):
+        self.new_input(")")
 
     def ev_change_mode(self, num=0):
         global simple_interface
@@ -262,6 +314,27 @@ class advanced_interface:
     def ev_ans(self):
         self.new_input(str(self.memory_list[len(self.memory_list)-1-self.backward][1]))
 
+    def ev_ft(self):
+        self.new_input("!!")
+
+    def ev_sin(self):
+        self.new_input("sin")
+
+    def ev_cos(self):
+        self.new_input("cos")
+
+    def ev_tan(self):
+        self.new_input("tan")
+
+    def ev_cot(self):
+        self.new_input("cot")
+
+    def ev_log(self):
+        self.new_input("log")
+
+    def ev_ln(self):
+        self.new_input("ln")
+
     def ev_MRC(self):
         self.new_input(str(self.mm))
 
@@ -278,6 +351,10 @@ class advanced_interface:
             self.window.update()
             from time import sleep as sl
             sl(1)
+
+
+
+
 
 
 class simple_interface:
