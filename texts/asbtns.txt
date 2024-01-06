@@ -1,0 +1,5 @@
+mem space 2 0
+mod Tab 3 0
+= =_or_enter 5 4
+Ans shift+@ 3 4
+MRC m 0 1

@@ -1,0 +1,6 @@
+mem space 1 0
+mod Tab 2 0
+DEL Backspace 3 0
+AC Escape 4 0
+= =_or_enter 4 4
+Ans shift+@ 2 4
