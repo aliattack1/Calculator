@@ -520,16 +520,13 @@ class simple_interface:
             self.label2.config(text=self.calculator.Calculator.calculate(self.utility.input_checker.action(self.label["text"])))
             self.memory_list.append((self.label["text"], self.label2["text"]))
         except:
-
             self.window.destroy()
             a = self.tk.Tk()
             b = self.tk.Label(text="wrong syntax!!!",font=("", 20), background="red", foreground="blue", master=a)
             b.pack(fill="both")
             a.mainloop()
-
             global advanced_interface
             n = advanced_interface(1)
-
             self.window = n.ev_change_mode(1)
         self.is_seen = True
         self.backward = 0
