@@ -1,7 +1,12 @@
 class advanced_interface:
+    def theme(self, btn_list, colors):
+        for btn_name, btn in btn_list.items():
+            btn.config(background=colors[0], foreground=colors[1])
+            btn.update_idletasks()
+
     def make_btn(self, a, b, func):
 
-        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", text=a[0], height=5, width=10,
+        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text=a[0], height=2, width=5,
                                     master=self.frame2,
                                     command=lambda: func(a[0]))
         b[a[0]].bind("<Enter>", lambda event: self.show_short(event, a[1], a[2], a[3]))
@@ -39,6 +44,8 @@ class advanced_interface:
 
         for a in f:
             b = self.make_btn(a, b, funs[a[0]])
+
+        return b
 
 
     def document(self):
@@ -95,6 +102,10 @@ class advanced_interface:
             self.window = tk.Tk()
             self.window.geometry("+{}+{}".format(100, 100))
             self.window.bind("<Configure>", lambda event: self.gem())
+            self.window.geometry("575x400")
+            self.window.iconbitmap(
+                "C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
+            self.window.resizable(False, False)
         self.gem()
         self.is_seen = False
         self.memory_list = memorylist
@@ -139,6 +150,7 @@ class advanced_interface:
         menubar = self.tk.Menu(self.window)
         self.window.config(menu=menubar)
         file_menu = self.tk.Menu(menubar)
+        theme_menu = self.tk.Menu(menubar)
         file_menu.add_command(
             label='keyboard_buttons',
             command=self.document
@@ -167,24 +179,23 @@ class advanced_interface:
                                master=self.frame2, wraplength=100)
         self.label5.grid(column=7, row=4, sticky="nswe")
         # buttons
-        btn_list = self.btns()
-        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", height=5, width=20, master=self.frame2,
-                            command=self.ev_DEL)
+
+        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", font=("Arial", 15), height=2, width=10, master=self.frame2,command=self.ev_DEL)
         btn_DEL.bind("<Enter>", lambda event: self.show_short(event, "Backspace", 7, 1))
         btn_DEL.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", height=5, width=20, master=self.frame2,
+        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", font=("Arial", 15), height=2, width=10, master=self.frame2,
                            command=self.ev_AC)
         btn_AC.bind("<Enter>", lambda event: self.show_short(event, "Esc", 7, 0))
         btn_AC.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_00 = tk.Button(background="#FCA311", foreground="#14213D", text="00", height=5, width=10,
+        btn_00 = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="00", height=2, width=5,
                             master=self.frame2, command=self.ev_00)
-        btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", text="Auto\nreply", height=5, width=10,
+        btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="Auto\nreply", height=2, width=5,
                             master=self.frame2, command=self.ev_AR)
         btn_auto_r.bind("<Enter>", lambda event: self.show_short(event, "r", 0, 0))
         btn_auto_r.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", text="M+", height=5, width=10,
+        btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M+", height=2, width=5,
                             master=self.frame2, command=self.ev_Mp)
-        btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", text="M-", height=5, width=10,
+        btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M-", height=2, width=5,
                             master=self.frame2, command=self.ev_Mm)
         btn_Mp.grid(column=0, row=2)
         btn_Mm.grid(column=0, row=3)
@@ -192,6 +203,67 @@ class advanced_interface:
         btn_00.grid(column=0, row=4)
         btn_DEL.grid(column=7, row=1)
         btn_AC.grid(column=7, row=0)
+        btn_list = self.btns()
+        btn_list.update({"ac": btn_AC, "mp": btn_Mp, "mm": btn_Mm, "del": btn_DEL, "auto": btn_auto_r, "00": btn_00})
+        themes = {
+            "classic": ["#0074cc", "#ffffff"],
+            "dark": ["#1e1e1e", "#ffffff"],
+            "light": ["#f8f8f8", "#333333"],
+            "sunset": ["#ff6f61", "#ffffff"],
+            "ocean": ["#0077be", "#ffffff"],
+            "forest": ["#228b22", "#ffffff"],
+            "haze": ["#800080", "#ffffff"],
+            "chery": ["#ffafc9", "#333333"],
+            "golden_sands": ["#ffd700", "#333333"],
+            "midnight_sky": ["#191970", "#ffffff"],
+            "attack": ["#FCA311", "#14213D"]
+        }
+
+        menubar.add_cascade(
+            label="themes",
+            menu=theme_menu
+        )
+        theme_menu.add_command(
+            label="classic",
+            command=lambda: self.theme(btn_list, themes["classic"])
+        )
+        theme_menu.add_command(
+            label="chery",
+            command=lambda: self.theme(btn_list, themes["chery"])
+        )
+        theme_menu.add_command(
+            label="dark",
+            command=lambda: self.theme(btn_list, themes["dark"])
+        )
+        theme_menu.add_command(
+            label="light",
+            command=lambda: self.theme(btn_list, themes["light"])
+        )
+        theme_menu.add_command(
+            label="ocean",
+            command=lambda: self.theme(btn_list, themes["ocean"])
+        )
+        theme_menu.add_command(
+            label="haze",
+            command=lambda: self.theme(btn_list, themes["haze"])
+        )
+        theme_menu.add_command(
+            label="forest",
+            command=lambda: self.theme(btn_list, themes["forest"])
+        )
+        theme_menu.add_command(
+            label="golden_sands",
+            command=lambda: self.theme(btn_list, themes["golden_sands"])
+        )
+        theme_menu.add_command(
+            label="midnight_sky",
+            command=lambda: self.theme(btn_list, themes["midnight_sky"])
+        )
+        theme_menu.add_command(
+            label="attack",
+            command=lambda: self.theme(btn_list, themes["attack"])
+        )
+
         if self.memory_list:
             self.label3.config(text=f"here; {str(len(self.memory_list))} problems have been solved")
         if self.opnum:
@@ -361,7 +433,7 @@ class simple_interface:
 
     def make_btn(self, a, b, func):
 
-        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", text=a[0], height=5, width=10,
+        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text=a[0], height=2, width=5,
                                     master=self.frame2,
                                     command=lambda: func(a[0]))
         b[a[0]].bind("<Enter>", lambda event: self.show_short(event, a[1], a[2], a[3]))
@@ -371,6 +443,10 @@ class simple_interface:
             self.window.bind(a[0], lambda event: func(a[0]))
         return b
 
+    def theme(self, btn_list, colors):
+        for btn_name, btn in btn_list.items():
+            btn.config(background=colors[0], foreground=colors[1])
+            btn.update_idletasks()
 
     def btns(self):
         b = {}
@@ -399,6 +475,7 @@ class simple_interface:
 
         for a in f:
             b = self.make_btn(a, b, funs[a[0]])
+        return b
 
 
     def show_short(self, event, text, collumn, row):
@@ -443,6 +520,9 @@ class simple_interface:
         self.calculator = calculator
         self.utility = utility
         self.window = tk.Tk()
+        self.window.geometry("325x407")
+        self.window.iconbitmap("C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
+        self.window.resizable(False, False)
         self.is_seen = False
         self.memory_list = memorylist
         self.backward = 0
@@ -480,6 +560,7 @@ class simple_interface:
         self.window.config(menu=menubar)
         # create a menu
         file_menu = self.tk.Menu(menubar)
+        theme_menu = self.tk.Menu(menubar)
         # add a menu item to the menu
         file_menu.add_command(
             label='keyboard_buttons',
@@ -502,6 +583,66 @@ class simple_interface:
         self.label2.pack(fill=tk.X)
         # buttons
         btn_list = self.btns()
+
+        themes = {
+            "classic": ["#0074cc", "#ffffff"],
+            "dark": ["#1e1e1e", "#ffffff"],
+            "light": ["#f8f8f8", "#333333"],
+            "sunset": ["#ff6f61", "#ffffff"],
+            "ocean": ["#0077be", "#ffffff"],
+            "forest": ["#228b22", "#ffffff"],
+            "haze": ["#800080", "#ffffff"],
+            "chery": ["#ffafc9", "#333333"],
+            "golden_sands": ["#ffd700", "#333333"],
+            "midnight_sky": ["#191970", "#ffffff"],
+            "attack": ["#FCA311", "#14213D"]
+        }
+
+
+        menubar.add_cascade(
+            label="themes",
+            menu=theme_menu
+        )
+        theme_menu.add_command(
+            label="classic",
+            command=lambda: self.theme(btn_list,themes["classic"])
+        )
+        theme_menu.add_command(
+            label="chery",
+            command=lambda: self.theme(btn_list, themes["chery"])
+        )
+        theme_menu.add_command(
+            label="dark",
+            command=lambda: self.theme(btn_list, themes["dark"])
+        )
+        theme_menu.add_command(
+            label="light",
+            command=lambda: self.theme(btn_list, themes["light"])
+        )
+        theme_menu.add_command(
+            label="ocean",
+            command=lambda: self.theme(btn_list, themes["ocean"])
+        )
+        theme_menu.add_command(
+            label="haze",
+            command=lambda: self.theme(btn_list, themes["haze"])
+        )
+        theme_menu.add_command(
+            label="forest",
+            command=lambda: self.theme(btn_list, themes["forest"])
+        )
+        theme_menu.add_command(
+            label="golden_sands",
+            command=lambda: self.theme(btn_list, themes["golden_sands"])
+        )
+        theme_menu.add_command(
+            label="midnight_sky",
+            command=lambda: self.theme(btn_list, themes["midnight_sky"])
+        )
+        theme_menu.add_command(
+            label="attack",
+            command=lambda: self.theme(btn_list, themes["attack"])
+        )
 
         self.window.mainloop()
 
