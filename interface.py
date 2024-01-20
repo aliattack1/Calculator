@@ -6,7 +6,7 @@ class advanced_interface:
 
     def make_btn(self, a, b, func):
 
-        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text=a[0], height=2, width=5,
+        b[a[0]] = self.tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text=a[0], height=3, width=6,
                                     master=self.frame2,
                                     command=lambda: func(a[0]))
         b[a[0]].bind("<Enter>", lambda event: self.show_short(event, a[1], a[2], a[3]))
@@ -61,7 +61,7 @@ class advanced_interface:
     def show_short(self, event, text, collumn, row):
         self.last_short = self.tk.Toplevel()
         self.last_short.overrideredirect(True)
-        self.last_short.geometry("+{}+{}".format(20 + self.x+(collumn*85), 180 + self.y+(row*85)))
+        self.last_short.geometry("+{}+{}".format(20 + self.x+(collumn*75), 180 + self.y+(row*75)))
         shortcut_label = self.tk.Label(self.last_short, text=text, background="yellow")
         shortcut_label.pack()
     def binds(self):
@@ -102,10 +102,9 @@ class advanced_interface:
             self.window = tk.Tk()
             self.window.geometry("+{}+{}".format(100, 100))
             self.window.bind("<Configure>", lambda event: self.gem())
-            self.window.geometry("575x400")
-            self.window.iconbitmap(
-                "C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
-            self.window.resizable(False, False)
+            # self.window.geometry("640x520")
+            # self.window.iconbitmap("C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
+            # self.window.resizable(False, False)
         self.gem()
         self.is_seen = False
         self.memory_list = memorylist
@@ -179,23 +178,22 @@ class advanced_interface:
                                master=self.frame2, wraplength=100)
         self.label5.grid(column=7, row=4, sticky="nswe")
         # buttons
-
-        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", font=("Arial", 15), height=2, width=10, master=self.frame2,command=self.ev_DEL)
+        btn_DEL = tk.Button(background="#FCA311", foreground="#14213D", text="DEL", font=("Arial", 15), height=3, width=9, master=self.frame2,command=self.ev_DEL)
         btn_DEL.bind("<Enter>", lambda event: self.show_short(event, "Backspace", 7, 1))
         btn_DEL.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", font=("Arial", 15), height=2, width=10, master=self.frame2,
+        btn_AC = tk.Button(background="#FCA311", foreground="#14213D", text="AC", font=("Arial", 15), height=3, width=9, master=self.frame2,
                            command=self.ev_AC)
         btn_AC.bind("<Enter>", lambda event: self.show_short(event, "Esc", 7, 0))
         btn_AC.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_00 = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="00", height=2, width=5,
+        btn_00 = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="00", height=3, width=6,
                             master=self.frame2, command=self.ev_00)
-        btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="Auto\nreply", height=2, width=5,
+        btn_auto_r = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="Auto\nreply", height=3, width=6,
                             master=self.frame2, command=self.ev_AR)
         btn_auto_r.bind("<Enter>", lambda event: self.show_short(event, "r", 0, 0))
         btn_auto_r.bind("<Leave>", lambda event: self.last_short.destroy())
-        btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M+", height=2, width=5,
+        btn_Mp = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M+", height=3, width=6,
                             master=self.frame2, command=self.ev_Mp)
-        btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M-", height=2, width=5,
+        btn_Mm = tk.Button(background="#FCA311", foreground="#14213D", font=("Arial", 15), text="M-", height=3, width=6,
                             master=self.frame2, command=self.ev_Mm)
         btn_Mp.grid(column=0, row=2)
         btn_Mm.grid(column=0, row=3)
@@ -281,55 +279,10 @@ class advanced_interface:
         last_text = self.label["text"]
         self.label.config(text=last_text+inp)
 
-    def ev_0(self):
-        self.new_input("0")
-
-    def ev_1(self):
-        self.new_input("1")
-
-    def ev_2(self):
-        self.new_input("2")
-
-    def ev_3(self):
-        self.new_input("3")
-
-    def ev_4(self):
-        self.new_input("4")
-
-    def ev_5(self):
-        self.new_input("5")
-
-    def ev_6(self):
-        self.new_input("6")
-
-    def ev_7(self):
-        self.new_input("7")
-
-    def ev_8(self):
-        self.new_input("8")
-
-    def ev_9(self):
-        self.new_input("9")
-
     def ev_00(self):
         self.new_input("00")
 
-    def ev_plus(self):
-        self.new_input("+")
-
-    def ev_minus(self):
-        self.new_input("-")
-
-    def ev_multiple(self):
-        self.new_input("*")
-
-    def ev_divide(self):
-        self.new_input("/")
-
-    def ev_ashar(self):
-        self.new_input(".")
-
-    def ev_equal(self):
+    def ev_equal(self, temp=None):
         try:
             self.label2.config(text=self.calculator.Calculator.calculate(self.utility.input_checker.action(self.label["text"])))
             self.memory_list.append((self.label["text"], self.label2["text"]))
@@ -342,19 +295,7 @@ class advanced_interface:
         self.backward = 0
         self.opnum = 0
 
-    def ev_power(self):
-        self.new_input("^")
-
-    def ev_remaining(self):
-        self.new_input("%")
-
-    def ev_parentheses_start(self):
-        self.new_input("(")
-
-    def ev_parentheses_end(self):
-        self.new_input(")")
-
-    def ev_change_mode(self, num=0):
+    def ev_change_mode(self, temp=None, num=0):
         global simple_interface
         if num == 0:
             self.window.destroy()
@@ -363,7 +304,7 @@ class advanced_interface:
             a = simple_interface(memorylist=self.memory_list, opnum=self.opnum)
             return a.window
 
-    def ev_AC(self):
+    def ev_AC(self, temp=None):
         self.label.config(text="")
         self.label2.config(text="")
         self.opnum = 0
@@ -371,10 +312,10 @@ class advanced_interface:
         self.label3.config(text="you had done nothing yet")
         self.label4.config(text=".........")
 
-    def ev_DEL(self):
+    def ev_DEL(self, temp=None):
         self.label.config(text=self.label["text"][0:len(self.label["text"])-1])
 
-    def ev_mem(self):
+    def ev_mem(self, temp=None):
         self.backward += 1
         try:
             a = self.memory_list[len(self.memory_list)-1-self.backward]
@@ -383,7 +324,7 @@ class advanced_interface:
         except:
             pass
 
-    def ev_ans(self):
+    def ev_ans(self, temp=None):
         self.new_input(str(self.memory_list[len(self.memory_list)-1-self.backward][1]))
 
     def ev_ft(self):
@@ -407,16 +348,16 @@ class advanced_interface:
     def ev_ln(self):
         self.new_input("ln")
 
-    def ev_MRC(self):
+    def ev_MRC(self, temp=None):
         self.new_input(str(self.mm))
 
-    def ev_Mp(self):
+    def ev_Mp(self, temp=None):
         self.mm = float(self.label2["text"])
 
-    def ev_Mm(self):
+    def ev_Mm(self, temp=None):
         self.mm = -float(self.label2["text"])
 
-    def ev_AR(self):
+    def ev_AR(self, temp=None):
         for a in self.memory_list:
             self.label.config(text=a[0])
             self.label2.config(text=a[1])
@@ -481,7 +422,7 @@ class simple_interface:
     def show_short(self, event, text, collumn, row):
         self.last_short = self.tk.Toplevel()
         self.last_short.overrideredirect(True)
-        self.last_short.geometry("+{}+{}".format(10 + self.x+(collumn*85), 180 + self.y+(row*85)))
+        self.last_short.geometry("+{}+{}".format(10 + self.x+(collumn*65), 165 + self.y+(row*63)))
         shortcut_label = self.tk.Label(self.last_short, text=text, background="yellow")
         shortcut_label.pack()
 
@@ -520,9 +461,9 @@ class simple_interface:
         self.calculator = calculator
         self.utility = utility
         self.window = tk.Tk()
-        self.window.geometry("325x407")
-        self.window.iconbitmap("C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
-        self.window.resizable(False, False)
+        # self.window.geometry("325x407")
+        # self.window.iconbitmap("C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
+        # self.window.resizable(False, False)
         self.is_seen = False
         self.memory_list = memorylist
         self.backward = 0
