@@ -3,7 +3,7 @@ import utility
 
 
 class Calculator:
-
+    lnn = False
     operation_method_dict = {}
     operations_string = '@'
     negative_number = False
@@ -65,14 +65,13 @@ class Calculator:
                 new_number = input_list[operation_count + 1]
                 last_number = cls.callfu(last_number, input_part, new_number)
             operation_count += 1
+        if last_number < 0:
+            cls.lnn =True
+            return -last_number
         return last_number
 
     @classmethod
     def calculate(cls, inp):
-        """
-
-        :rtype: object
-        """
         if '(' in inp or ')' in inp:
             inp_part_1, inp_part_2, inp_part_3 = cls.parentheses(inp)
             new_inp = cls.calculate(inp_part_1)
@@ -82,20 +81,22 @@ class Calculator:
                 if inp_part_2 != "":
                     cls.negative_number = True
                     cls.negative_number_right = True
-                    return cls.calculate(inp_part_2 + str(-new_inp) + inp_part_3)
+                    return cls.calculate(inp_part_2 + str(-int(new_inp)) + inp_part_3)
                 else:
                     cls.negative_number = True
                     cls.negative_number_right = False
                     return cls.calculate(inp_part_2 + str(-new_inp) + inp_part_3)
         else:
             return cls.ordered_calculation_structure(inp)
-
     @classmethod
     def order_call(cls, inp, place):
         lis = utility.input_to_list.action(cls.function_list, cls.operations_string, inp)
         index = utility.get_index.action(lis, place-1)
         seperated_input_part = utility.get_string.action(lis[index-1:index+2])
         answer = cls.operations_and_functions(utility.input_to_list.action(cls.function_list, cls.operations_string, seperated_input_part))
+        if cls.lnn:
+            answer = -answer
+            cls.lnn = False
         return utility.get_string.action(lis[:index - 1]) + str(answer) + utility.get_string.action(lis[index + 2:])
 
     @classmethod
@@ -105,21 +106,31 @@ class Calculator:
         importance_list_values = []
         for key in importance_list_keys:
             importance_list_values.append(importance_list[key])
-        while max(importance_list_values) > 1:
-            max_importance_value = max(importance_list_values)
-            importance_values_string = ""
-            for key in importance_list_keys:
-                importance_values_string += str(importance_list[key])
-            inp = cls.order_call(inp, importance_list_keys[importance_values_string.index(str(max_importance_value))])
-            importance_list = utility.input_to_importance_dict.action(cls, inp)
+        if len(importance_list_values):
+            while max(importance_list_values) > 1:
+                max_importance_value = max(importance_list_values)
+                importance_values_string = ""
+                for key in importance_list_keys:
+                    importance_values_string += str(importance_list[key])
+                inp = cls.order_call(inp, importance_list_keys[importance_values_string.index(str(max_importance_value))])
+                importance_list = utility.input_to_importance_dict.action(cls, inp)
 
-            importance_list_keys = list(importance_list.keys())
-            importance_list_values = []
-            for key in importance_list_keys:
-                importance_list_values.append(importance_list[key])
-            if not importance_list_values:
-                return inp
-        return cls.operations_and_functions(utility.input_to_list.action(cls.function_list, cls.operations_string, inp))
+                importance_list_keys = list(importance_list.keys())
+                importance_list_values = []
+                for key in importance_list_keys:
+                    importance_list_values.append(importance_list[key])
+                try:
+                    return float(inp)
+                except:
+                    pass
+        if utility.input_to_list.action(cls.function_list, cls.operations_string, inp)[0] == "-":
+            return inp
+        answer = cls.operations_and_functions(utility.input_to_list.action(cls.function_list, cls.operations_string, inp))
+        if cls.lnn:
+            answer = -answer
+            cls.lnn = False
+        return answer
+
 
     @classmethod
     def operation_and_function_register(cls, opname, func):
