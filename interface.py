@@ -92,19 +92,22 @@ class advanced_interface:
         self.y = int(geometry_temp[6])
 
 
-    def __init__(self, num=0, memorylist=[], opnum=0):
+    def __init__(self, num=0, memorylist=[], opnum=0, mainer=True):
         import tkinter as tk
         import calculator, utility
         self.tk = tk
         self.calculator = calculator
         self.utility = utility
+
         if num == 0:
             self.window = tk.Tk()
             self.window.geometry("+{}+{}".format(100, 100))
             self.window.bind("<Configure>", lambda event: self.gem())
+
             # self.window.geometry("640x520")
             # self.window.iconbitmap("C:\\Users\\IraniaN\\PycharmProjects\\claculator\\calculator_v2.5.0\\images\\icon.ico")
             # self.window.resizable(False, False)
+
         self.gem()
         self.is_seen = False
         self.memory_list = memorylist
@@ -149,7 +152,7 @@ class advanced_interface:
         menubar = self.tk.Menu(self.window)
         self.window.config(menu=menubar)
         file_menu = self.tk.Menu(menubar)
-        theme_menu = self.tk.Menu(menubar)
+        self.theme_menu = self.tk.Menu(menubar)
         file_menu.add_command(
             label='keyboard_buttons',
             command=self.document
@@ -201,9 +204,9 @@ class advanced_interface:
         btn_00.grid(column=0, row=4)
         btn_DEL.grid(column=7, row=1)
         btn_AC.grid(column=7, row=0)
-        btn_list = self.btns()
-        btn_list.update({"ac": btn_AC, "mp": btn_Mp, "mm": btn_Mm, "del": btn_DEL, "auto": btn_auto_r, "00": btn_00})
-        themes = {
+        self.btn_list = self.btns()
+        self.btn_list.update({"ac": btn_AC, "mp": btn_Mp, "mm": btn_Mm, "del": btn_DEL, "auto": btn_auto_r, "00": btn_00})
+        self.themes = {
             "classic": ["#0074cc", "#ffffff"],
             "dark": ["#1e1e1e", "#ffffff"],
             "light": ["#f8f8f8", "#333333"],
@@ -219,54 +222,59 @@ class advanced_interface:
 
         menubar.add_cascade(
             label="themes",
-            menu=theme_menu
+            menu=self.theme_menu
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="classic",
-            command=lambda: self.theme(btn_list, themes["classic"])
+            command=lambda: self.theme(self.btn_list, self.themes["classic"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="chery",
-            command=lambda: self.theme(btn_list, themes["chery"])
+            command=lambda: self.theme(self.btn_list, self.themes["chery"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="dark",
-            command=lambda: self.theme(btn_list, themes["dark"])
+            command=lambda: self.theme(self.btn_list, self.themes["dark"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="light",
-            command=lambda: self.theme(btn_list, themes["light"])
+            command=lambda: self.theme(self.btn_list, self.themes["light"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="ocean",
-            command=lambda: self.theme(btn_list, themes["ocean"])
+            command=lambda: self.theme(self.btn_list, self.themes["ocean"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="haze",
-            command=lambda: self.theme(btn_list, themes["haze"])
+            command=lambda: self.theme(self.btn_list, self.themes["haze"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="forest",
-            command=lambda: self.theme(btn_list, themes["forest"])
+            command=lambda: self.theme(self.btn_list, self.themes["forest"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="golden_sands",
-            command=lambda: self.theme(btn_list, themes["golden_sands"])
+            command=lambda: self.theme(self.btn_list, self.themes["golden_sands"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="midnight_sky",
-            command=lambda: self.theme(btn_list, themes["midnight_sky"])
+            command=lambda: self.theme(self.btn_list, self.themes["midnight_sky"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
+            label="sunset",
+            command=lambda: self.theme(self.btn_list, self.themes["sunset"])
+        )
+        self.theme_menu.add_command(
             label="attack",
-            command=lambda: self.theme(btn_list, themes["attack"])
+            command=lambda: self.theme(self.btn_list, self.themes["attack"])
         )
 
         if self.memory_list:
             self.label3.config(text=f"here; {str(len(self.memory_list))} problems have been solved")
         if self.opnum:
             self.label4.config(text=f"in last problem you used {self.opnum} functions and operations")
-        self.window.mainloop()
+        if mainer:
+            self.window.mainloop()
 
     def new_input(self, inp):
         if inp in "+-/*^%sincostancotlogln!!":
@@ -453,7 +461,7 @@ class simple_interface:
         self.x = int(geometry_temp[4])
         self.y = int(geometry_temp[6])
 
-    def __init__(self, memorylist=[], opnum=0):
+    def __init__(self, memorylist=[], opnum=0, mainer=True):
         import tkinter as tk
         import calculator, utility
         self.tk = tk
@@ -501,7 +509,7 @@ class simple_interface:
         self.window.config(menu=menubar)
         # create a menu
         file_menu = self.tk.Menu(menubar)
-        theme_menu = self.tk.Menu(menubar)
+        self.theme_menu = self.tk.Menu(menubar)
         # add a menu item to the menu
         file_menu.add_command(
             label='keyboard_buttons',
@@ -523,9 +531,9 @@ class simple_interface:
         self.label2 = tk.Label(background="#4F6467", foreground="white", height=1, master=frame1)
         self.label2.pack(fill=tk.X)
         # buttons
-        btn_list = self.btns()
+        self.btn_list = self.btns()
 
-        themes = {
+        self.themes = {
             "classic": ["#0074cc", "#ffffff"],
             "dark": ["#1e1e1e", "#ffffff"],
             "light": ["#f8f8f8", "#333333"],
@@ -542,50 +550,50 @@ class simple_interface:
 
         menubar.add_cascade(
             label="themes",
-            menu=theme_menu
+            menu=self.theme_menu
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="classic",
-            command=lambda: self.theme(btn_list,themes["classic"])
+            command=lambda: self.theme(self.btn_list,self.themes["classic"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="chery",
-            command=lambda: self.theme(btn_list, themes["chery"])
+            command=lambda: self.theme(self.btn_list, self.themes["chery"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="dark",
-            command=lambda: self.theme(btn_list, themes["dark"])
+            command=lambda: self.theme(self.btn_list, self.themes["dark"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="light",
-            command=lambda: self.theme(btn_list, themes["light"])
+            command=lambda: self.theme(self.btn_list, self.themes["light"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="ocean",
-            command=lambda: self.theme(btn_list, themes["ocean"])
+            command=lambda: self.theme(self.btn_list, self.themes["ocean"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="haze",
-            command=lambda: self.theme(btn_list, themes["haze"])
+            command=lambda: self.theme(self.btn_list, self.themes["haze"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="forest",
-            command=lambda: self.theme(btn_list, themes["forest"])
+            command=lambda: self.theme(self.btn_list, self.themes["forest"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="golden_sands",
-            command=lambda: self.theme(btn_list, themes["golden_sands"])
+            command=lambda: self.theme(self.btn_list, self.themes["golden_sands"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="midnight_sky",
-            command=lambda: self.theme(btn_list, themes["midnight_sky"])
+            command=lambda: self.theme(self.btn_list, self.themes["midnight_sky"])
         )
-        theme_menu.add_command(
+        self.theme_menu.add_command(
             label="attack",
-            command=lambda: self.theme(btn_list, themes["attack"])
+            command=lambda: self.theme(self.btn_list, self.themes["attack"])
         )
-
-        self.window.mainloop()
+        if mainer:
+            self.window.mainloop()
 
     def new_input(self, inp):
         if inp in "+-/*^%sincostancotlogln!!":
@@ -639,5 +647,5 @@ class simple_interface:
     def ev_ans(self, temp=None):
         self.new_input(str(self.memory_list[len(self.memory_list)-1-self.backward][1]))
 
-
-a = simple_interface()
+if __name__ == "__main__":
+    a = simple_interface()
