@@ -13,4 +13,4 @@
 ### **Auto reply button is for reviewing all in memory (not erased ones) problems solved**
 
 
-# please wait until next versions for improvment
+# thanks for your patience
